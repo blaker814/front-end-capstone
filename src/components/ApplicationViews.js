@@ -1,6 +1,6 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { Home } from "./Home"
+import { Home } from "./home/Home"
 import { CelebrationCalendar } from "./celebration/CelebrationCalendar"
 import { GiftList } from "./gift/GiftList"
 import { BudgetList } from "./budget/BudgetList"
