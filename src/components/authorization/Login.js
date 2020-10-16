@@ -47,12 +47,7 @@ export const Login = props => {
                             
                             <Divider />
 
-                            <p className="about">The Immortal Bat Syndicate is an online community
-                            for the most elite baseball fans, those who understand the un-swung legacy
-                            of the game's greatest bats.  The Immortal Bat Syndicate community is wholly
-                            owned and operated by the Immortal Bat Syndicate Trust and Charitable
-                            Foundation.  All profits from this endeavor go to fund the care and repair
-                            of the bats which have been retired or damaged on the field.</p>
+                            <p className="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
                             <Divider />
 
