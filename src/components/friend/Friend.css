@@ -1,9 +1,12 @@
-.friendsContainer {
-    max-width: 1100px;
-    margin: 25px auto 0 auto;
+.friends {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .friend {
-    display: flex;
-    align-items: baseline;
+    flex-basis: 28%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid lightgreen;
 }
