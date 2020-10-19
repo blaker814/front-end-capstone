@@ -1,0 +1,47 @@
+.threads {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.thread {
+    flex-basis: 28%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid lightgreen;
+}
+
+.messages--window {
+    overflow: hidden;
+}
+
+.messageForm {
+    margin-top: 25px;
+}
+
+.messages--header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    margin: 25px auto 0 auto;
+}
+
+.messages--container {
+    height: 75vh;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #d1d1d1;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    overflow-y: auto;
+    display: flex;
+    flex-flow: column-reverse nowrap;
+}
+
+.message--container {
+    margin-top: 25px;
+}
+
+.message--notFriend {
+    cursor: pointer;
+}

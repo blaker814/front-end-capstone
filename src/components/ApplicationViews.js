@@ -9,6 +9,11 @@ import { FriendList } from "./friend/FriendList"
 import { FriendProvider } from "./friend/FriendProvider"
 import { UserProvider } from "./user/UserProvider"
 import { FriendSearch } from "./friend/FriendSearch"
+import { MessageProvider } from "./message/MessageProvider"
+import { MessageList } from "./message/MessageList"
+import { CelebrationProvider } from "./celebration/CelebrationProvider"
+import { CelebrationList } from "./celebration/CelebrationList"
+import { CelebrationForm } from "./celebration/CelebrationForm"
 
 export const ApplicationViews = (props) => {
     return (
@@ -17,9 +22,35 @@ export const ApplicationViews = (props) => {
                 <Home />
             </Route>
 
-            <Route exact path="/celebrations">
-                <CelebrationCalendar />
-            </Route>
+            <CelebrationProvider>
+                <Route exact path="/celebrations">
+                    <CelebrationCalendar />
+                </Route>
+            </CelebrationProvider>
+
+            <CelebrationProvider>
+                <Route exact path="/celebrations/list/:date">
+                    <CelebrationList />
+                </Route>
+            </CelebrationProvider>
+
+            <CelebrationProvider>
+                <Route exact path="/celebrations/create">
+                    <CelebrationForm />
+                </Route>
+            </CelebrationProvider>
+
+            <CelebrationProvider>
+                <Route exact path="/celebrations/create/:date">
+                    <CelebrationForm />
+                </Route>
+            </CelebrationProvider>
+
+            <CelebrationProvider>
+                <Route exact path="/celebrations/edit/:celebrationId(\d+)">
+                    <CelebrationForm />
+                </Route>
+            </CelebrationProvider>
 
             <Route exact path="/gifts">
                 <GiftList />
@@ -29,9 +60,21 @@ export const ApplicationViews = (props) => {
                 <BudgetList />
             </Route>
 
-            <Route exact path="/messages">
-                <MessageThreadList />
-            </Route>
+            <MessageProvider>
+                <UserProvider>
+                    <Route exact path="/messages">
+                        <MessageThreadList />
+                    </Route>
+                </UserProvider>
+            </MessageProvider>
+
+            <MessageProvider>
+                <UserProvider>
+                    <Route exact path="/messages/list/:threadId(\d+)">
+                        <MessageList />
+                    </Route>
+                </UserProvider>
+            </MessageProvider>
 
             <FriendProvider>
                 <UserProvider>
