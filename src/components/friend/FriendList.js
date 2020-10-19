@@ -6,17 +6,34 @@ import { Button, Divider, Modal, Input, Icon } from "semantic-ui-react"
 import "./Friend.css"
 
 export const FriendList = () => {
-    const { friends, getFriends, addFriend } = useContext(FriendContext)
+    const { friends, getFriends, addFriend, searchTerms } = useContext(FriendContext)
     const { users, getUsers } = useContext(UserContext)
 
+    const [filteredFriends, setFiltered] = useState([])
     const [open, setOpen] = useState(false)
 
     const friendName = useRef("")
+
+    //returns only the friendships where the activeUserId matches the current users
+    const userFriends = friends.filter(friend => friend.activeUserId === parseInt(localStorage.getItem("cs_user")))
 
     //Gets friends and users on load
     useEffect(() => {
         getFriends().then(getUsers)
     }, [])
+
+    useEffect(() => {
+        if (searchTerms !== "") {
+            // If the search field is not blank, display matching friends
+            const subset = userFriends.filter(friend => {
+                return friend.user.name.toLowerCase().includes(searchTerms) || friend.user.username.toLowerCase().includes(searchTerms)
+            })
+            setFiltered(subset)
+        } else {
+            // If the search field is blank, display all user friends
+            setFiltered(userFriends)
+        }
+    }, [searchTerms, friends])
 
     const friendCheck = name => {
         //Checks if the user exists
@@ -53,9 +70,6 @@ export const FriendList = () => {
             alert("User does not exist!")
         }
     }
-
-    //returns only the friendships where the activeUserId matches the current users
-    const filteredFriends = friends.filter(friend => friend.activeUserId === parseInt(localStorage.getItem("cs_user")))
 
     return (
         <>

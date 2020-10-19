@@ -8,6 +8,7 @@ import { MessageThreadList } from "./message/MessageThreadList"
 import { FriendList } from "./friend/FriendList"
 import { FriendProvider } from "./friend/FriendProvider"
 import { UserProvider } from "./user/UserProvider"
+import { FriendSearch } from "./friend/FriendSearch"
 
 export const ApplicationViews = (props) => {
     return (
@@ -35,6 +36,7 @@ export const ApplicationViews = (props) => {
             <FriendProvider>
                 <UserProvider>
                     <Route exact path="/friends">
+                        <FriendSearch />
                         <FriendList />
                     </Route>
                 </UserProvider>
