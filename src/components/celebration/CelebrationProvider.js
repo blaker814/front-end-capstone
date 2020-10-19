@@ -26,7 +26,7 @@ export const CelebrationProvider = (props) => {
         return fetch(`http://localhost:8088/celebrations/${id}`, {
             method: "DELETE"
         })
-        .then(getCelebrationsByDate)
+        .then(getCelebrations)
     }
 
     const getCelebrationsByDate = date => {
