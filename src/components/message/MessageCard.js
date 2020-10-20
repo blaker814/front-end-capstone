@@ -1,34 +1,49 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import { ThreadContext } from "./MessageProvider"
+import { MessageContext } from "./MessageProvider"
 import { Button, Container, Header, Icon, Message } from "semantic-ui-react"
-import { UserContext } from "../user/UserProvider"
 
 export const MessageCard = ({ message, thread }) => {
-    const { deleteMessage } = useContext(ThreadContext)
-    const { users, getUsers } = useContext(UserContext)
+    const { deleteMessage, updateMessage } = useContext(MessageContext)
 
-    const currentUser = parseInt(localStorage.getItem("cs_user"))
-    const [modal, showModal] = useState(false)
-    const history = useHistory()
+    const handleRemoveMessage = () => {
+        if (thread.id === message.threadOneId) {
+            updateMessage({
+                id: message.id,
+                userId: message.userId,
+                date: message.date,
+                message: message.message,
+                threadOneId: null,
+                threadTwoId: message.threadTwoId
+            })
+        } else {
+            updateMessage({
+                id: message.id,
+                userId: message.userId,
+                date: message.date,
+                message: message.message,
+                threadOneId: message.threadOneId,
+                threadTwoId: null
+            })
+        }
+    }
 
-    const sendingUser = users.find(user => user.id === currentUser)
-    const receivingUser = users.find(user => user.id === thread.userId)
-
-    useEffect(() => {
-        getUsers()
-    }, [])
-
-    if (thread.sendingUserId === currentUser) {
+    if (message.userId === parseInt(localStorage.getItem("cs_user"))) {
         // global chat for current user
         return (
             <Container className="message--container">
                 <Message className="message" floating style={{ backgroundColor: "#fff" }}>
-                    <Header as="h3" className="message--currentUser">{sendingUser?.username}</Header>
+                    <Header as="h3" className="message--currentUser">Me</Header>
 
                     <p className="message--content">{message.message}</p>
-                    <p className="message--date" style={{ fontSize: "x-small" }}>{new Date(message.date).toLocaleString("en-US")}</p>
+                    <p className="message--date" style={{ fontSize: "x-small" }}>{message.date}</p>
 
+                    <Button type="button" onClick={() => {
+                        
+                    }}>Edit</Button>
+                    <Button negative type="button" onClick={() => {
+                        deleteMessage(message.id)
+                    }}>Delete</Button>
                 </Message>
             </Container>
         )  
@@ -37,10 +52,12 @@ export const MessageCard = ({ message, thread }) => {
         return (
             <Container className="message--container">
                 <Message className="message" floating style={{ backgroundColor: "lightgreen" }}> 
-                    <Header as="h3" className="message--notFriend">{receivingUser?.username}</Header>
+                    <Header as="h3" className="message--notFriend">{thread?.user.username}</Header>
                     <p className="message--content">{message.message}</p>
                     <p className="message--date" style={{ fontSize: "x-small" }}>{message.date}</p>
+                    <Button negative type="button" onClick={handleRemoveMessage}>Delete</Button>
                 </Message>
+                
             </Container>
         )
     }

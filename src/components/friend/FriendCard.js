@@ -3,7 +3,7 @@ import { Button, Icon } from "semantic-ui-react"
 import { FriendContext } from "./FriendProvider"
 
 export const FriendCard = ({ friend }) => {
-    const { friends, removeFriend } = useContext(FriendContext)
+    const { friends, removeFriend, getFriends } = useContext(FriendContext)
 
     return (
         <section className="friend">
@@ -16,8 +16,8 @@ export const FriendCard = ({ friend }) => {
                     return (friendship.activeUserId === friend.userId && friendship.userId === parseInt(localStorage.getItem("cs_user")))
                 })
                 //removes both friendship ids from the database
-                removeFriend(friend.id)
-                removeFriend(foundFriendship.id)
+                Promise.all([removeFriend(friend.id),removeFriend(foundFriendship.id)])
+                .then(getFriends)
             }}><Icon name="trash" /></Button>
         </section>
     )

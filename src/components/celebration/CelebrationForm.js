@@ -84,8 +84,9 @@ export const CelebrationForm = () => {
                     <label htmlFor="date">Date of celebration: </label>
                     <input type="date" id="date" name="date" required 
                     className="form-control" placeholder="Date of celebration" 
+                    min={new Date(Date.now() - 18000000).toISOString().split("T")[0]}
                     onChange={handleControlledInputChange} 
-                    defaultValue={celebration.date} />
+                    defaultValue={params.date? params.date : celebration.date} />
                 </div>
             </fieldset>
             <fieldset>
@@ -99,6 +100,7 @@ export const CelebrationForm = () => {
                     <label htmlFor="reminderStartDate">Celebration reminder start date: </label>
                     <input type="date" id="reminderStartDate" name="reminderStartDate" required 
                     className="form-control" placeholder="Celebration reminder start date" 
+                    min={new Date(Date.now() - 18000000).toISOString().split("T")[0]}
                     onChange={handleControlledInputChange} 
                     defaultValue={celebration.reminderStartDate} />
                 </div>

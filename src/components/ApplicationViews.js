@@ -4,7 +4,7 @@ import { Home } from "./home/Home"
 import { CelebrationCalendar } from "./celebration/CelebrationCalendar"
 import { GiftList } from "./gift/GiftList"
 import { BudgetList } from "./budget/BudgetList"
-import { MessageThreadList } from "./message/MessageThreadList"
+import { ThreadList } from "./message/ThreadList"
 import { FriendList } from "./friend/FriendList"
 import { FriendProvider } from "./friend/FriendProvider"
 import { UserProvider } from "./user/UserProvider"
@@ -61,19 +61,19 @@ export const ApplicationViews = (props) => {
             </Route>
 
             <MessageProvider>
-                <UserProvider>
+                <FriendProvider>
                     <Route exact path="/messages">
-                        <MessageThreadList />
+                        <ThreadList />
                     </Route>
-                </UserProvider>
+                </FriendProvider>
             </MessageProvider>
 
             <MessageProvider>
-                <UserProvider>
-                    <Route exact path="/messages/list/:threadId(\d+)">
+                <FriendProvider>
+                    <Route exact path="/messages/list/:friendId(\d+)">
                         <MessageList />
                     </Route>
-                </UserProvider>
+                </FriendProvider>
             </MessageProvider>
 
             <FriendProvider>
@@ -83,9 +83,7 @@ export const ApplicationViews = (props) => {
                         <FriendList />
                     </Route>
                 </UserProvider>
-            </FriendProvider>
-
-         
+            </FriendProvider>  
         </>
     )
 }

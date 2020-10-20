@@ -14,9 +14,6 @@ export const FriendList = () => {
 
     const friendName = useRef("")
 
-    //returns only the friendships where the activeUserId matches the current users
-    const userFriends = friends.filter(friend => friend.activeUserId === parseInt(localStorage.getItem("cs_user")))
-
     //Gets friends and users on load
     useEffect(() => {
         getFriends().then(getUsers)
@@ -56,11 +53,13 @@ export const FriendList = () => {
                 //When everything checks out, creates new friendship
                 addFriend({
                     activeUserId: parseInt(localStorage.getItem("cs_user")),
-                    userId: foundFriend.id
+                    userId: foundFriend.id,
+                    threadExist: false
                 })
                 addFriend({
                     activeUserId: foundFriend.id,
-                    userId: parseInt(localStorage.getItem("cs_user"))
+                    userId: parseInt(localStorage.getItem("cs_user")),
+                    threadExist: false
                 })
                 return foundFriend
             }
@@ -70,6 +69,9 @@ export const FriendList = () => {
             alert("User does not exist!")
         }
     }
+
+    //returns only the friendships where the activeUserId matches the current users
+    const userFriends = friends.filter(friend => friend.activeUserId === parseInt(localStorage.getItem("cs_user")))
 
     return (
         <>

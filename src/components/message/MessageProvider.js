@@ -1,14 +1,14 @@
 import React, { useState, createContext } from "react"
 
-export const ThreadContext = createContext()
+export const MessageContext = createContext()
 
 export const MessageProvider = (props) => {
-    const [threads, setThreads] = useState([])
+    const [messages, setMessages] = useState([])
 
-    const getMessageThreads = () => {
-        return fetch("http://localhost:8088/threads?_embed=messages")
+    const getMessages = () => {
+        return fetch(`http://localhost:8088/messages?_sort=date&_order=desc`)
             .then(res => res.json())
-            .then(setThreads)
+            .then(setMessages)
     }
 
     const addMessage = message => {
@@ -19,28 +19,32 @@ export const MessageProvider = (props) => {
             },
             body: JSON.stringify(message)
         })
-        .then(getMessageThreads)
+        .then(getMessages)
     }
 
-    const removeMessage = id => {
+    const deleteMessage = id => {
         return fetch(`http://localhost:8088/messages/${id}`, {
             method: "DELETE"
         })
-        .then(getMessageThreads)
+        .then(getMessages)
     }
 
-    const removeThread = id => {
-        return fetch(`http://localhost:8088/threads/${id}`, {
-            method: "DELETE"
+    const updateMessage = message => {
+        return fetch(`http://localhost:8088/messages/${message.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(message)
         })
-        .then(getMessageThreads)
+        .then(getMessages)
     }
 
     return (
-        <ThreadContext.Provider value={{
-            threads, getMessageThreads, addMessage, removeMessage, removeThread
+        <MessageContext.Provider value={{
+            messages, getMessages, addMessage, deleteMessage, updateMessage
         }}>
             {props.children}
-        </ThreadContext.Provider>
+        </MessageContext.Provider>
     )
 }
