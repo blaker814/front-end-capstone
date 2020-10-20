@@ -9,7 +9,7 @@ export const FriendCard = ({ friend }) => {
         <section className="friend">
             <h3 className="friend__name">{friend.user.username}</h3>
             <p>Name: {friend.user.name}</p>
-            <p>Birthday: {new Date(friend.user.birthday).toLocaleString("en-US").split(",")[0]}</p>
+            <p>Birthday: {friend.user.birthday.split("/").splice(0, 2).join("/")}</p>
             <Button icon negative type="button" style={{ marginLeft: 10 }} onClick={() => {
                 //returns the inverse of the friendship
                 const foundFriendship = friends.find(friendship => {

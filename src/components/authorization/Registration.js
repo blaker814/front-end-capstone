@@ -41,7 +41,7 @@ export const Register = (props) => {
                             email: email.current.value,
                             name: `${firstName.current.value} ${lastName.current.value}`,
                             username: username.current.value,
-                            birthday: birthday.current.value
+                            birthday: new Date(`${birthday.current.value}T07:00:00Z`).toLocaleString("en-US").split(",")[0]
                         })
                     })
                         .then(_ => _.json())
