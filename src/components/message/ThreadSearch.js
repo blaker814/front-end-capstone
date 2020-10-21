@@ -11,14 +11,14 @@ export const ThreadSearch = () => {
     
     return (
         <>
-            <label htmlFor="friendSearch">Search friends: </label> 
+            <label htmlFor="friendSearch">Search threads: </label> 
             <Input type="text"
                 className="input--wide"
                 id="friendSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
-                placeholder="Search for an friend... " />
+                placeholder="Search for a thread... " />
         </>
     )
 }

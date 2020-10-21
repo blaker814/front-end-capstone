@@ -15,6 +15,12 @@ import { MessageList } from "./message/MessageList"
 import { CelebrationProvider } from "./celebration/CelebrationProvider"
 import { CelebrationList } from "./celebration/CelebrationList"
 import { CelebrationForm } from "./celebration/CelebrationForm"
+import { GiftListProvider } from "./gift/GiftListProvider"
+import { GiftProvider } from "./gift/GiftProvider"
+import { LinkProvider } from "./gift/LinkProvider"
+import { GiftTable } from "./gift/GiftTable"
+import { GiftSearch } from "./gift/GiftSearch"
+import { GiftForm } from "./gift/GiftForm"
 
 export const ApplicationViews = (props) => {
     return (
@@ -53,9 +59,50 @@ export const ApplicationViews = (props) => {
                 </Route>
             </CelebrationProvider>
 
-            <Route exact path="/gifts">
-                <GiftList />
-            </Route>
+            <GiftListProvider>
+                <GiftProvider>
+                    <LinkProvider>
+                        <Route exact path="/gifts">
+                            <GiftSearch />
+                            <GiftList />
+                        </Route>
+                    </LinkProvider>
+                </GiftProvider>
+            </GiftListProvider>
+
+            <GiftListProvider>
+                <GiftProvider>
+                    <LinkProvider>
+                        <Route exact path="/gifts/table/:tableId(\d+)">
+                            <GiftTable />
+                        </Route>
+                    </LinkProvider>
+                </GiftProvider>
+            </GiftListProvider>
+
+            <GiftListProvider>
+                <GiftProvider>
+                    <LinkProvider>
+                        <CelebrationProvider>
+                            <Route exact path="/gifts/create/:tableId(\d+)">
+                                <GiftForm />
+                            </Route>
+                        </CelebrationProvider>
+                    </LinkProvider>
+                </GiftProvider>
+            </GiftListProvider>
+
+            <GiftListProvider>
+                <GiftProvider>
+                    <LinkProvider>
+                        <CelebrationProvider>
+                            <Route exact path="/gifts/create/:tableId(\d+)/:giftId(\d+)">
+                                <GiftForm />
+                            </Route>
+                        </CelebrationProvider>
+                    </LinkProvider>
+                </GiftProvider>
+            </GiftListProvider>
 
             <Route exact path="/budgets">
                 <BudgetList />
