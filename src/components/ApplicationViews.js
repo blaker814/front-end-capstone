@@ -5,6 +5,7 @@ import { CelebrationCalendar } from "./celebration/CelebrationCalendar"
 import { GiftList } from "./gift/GiftList"
 import { BudgetList } from "./budget/BudgetList"
 import { ThreadList } from "./message/ThreadList"
+import { ThreadSearch } from "./message/ThreadSearch"
 import { FriendList } from "./friend/FriendList"
 import { FriendProvider } from "./friend/FriendProvider"
 import { UserProvider } from "./user/UserProvider"
@@ -63,6 +64,7 @@ export const ApplicationViews = (props) => {
             <MessageProvider>
                 <FriendProvider>
                     <Route exact path="/messages">
+                        <ThreadSearch />
                         <ThreadList />
                     </Route>
                 </FriendProvider>

@@ -5,17 +5,34 @@ import { Button, Modal, Input } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
 export const ThreadList = () => {
-    const { friends, getFriends, getFriendsById, updateFriend } = useContext(FriendContext)
+    const { friends, getFriends, getFriendsById, updateFriend, searchTerms } = useContext(FriendContext)
     
     const [myFriends, setMyFriends] = useState([])
+    const [filteredThreads, setFiltered] = useState([])
     const [open, setOpen] = useState(false)
     const friendName = useRef()
     const history = useHistory()
 
     useEffect(() => {
         getFriends()
-        getFriendsById(localStorage.getItem("cs_user")).then(setMyFriends)
     }, [])
+
+    useEffect(() => {
+        getFriendsById(localStorage.getItem("cs_user")).then(setMyFriends)
+    }, [friends])
+
+    useEffect(() => {
+        if (searchTerms !== "") {
+            // If the search field is not blank, display matching friends
+            const subset = myFriends.filter(friend => {
+                return friend.user.username.toLowerCase().includes(searchTerms)
+            })
+            setFiltered(subset)
+        } else {
+            // If the search field is blank, display all user friends
+            setFiltered(myFriends)
+        }
+    }, [searchTerms, myFriends])
 
     const friendCheck = name => {
         const foundFriend = myFriends.find(friend => friend.user.username.toUpperCase() === name.toUpperCase())
@@ -77,7 +94,7 @@ export const ThreadList = () => {
             </Modal>
             <section className="threads">
                 {
-                    myFriends.map(friend => {
+                    filteredThreads.map(friend => {
                         return friend.threadExist ? <ThreadCard key={friend.id} friend={friend} /> : null
                     })
                 }

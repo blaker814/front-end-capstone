@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { FriendContext } from "./FriendProvider"
 import "./Friend.css"
+import { Input } from "semantic-ui-react"
 
 export const FriendSearch = () => {
     const { setSearchTerms } = useContext(FriendContext)
@@ -12,13 +13,13 @@ export const FriendSearch = () => {
     return (
         <>
             <label htmlFor="friendSearch">Search friends: </label> 
-            <input type="text"
+            <Input type="text"
                 className="input--wide"
                 id="friendSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
-                placeholder="Search for an friend... " />
+                placeholder="Search for a friend... " />
         </>
     )
 }

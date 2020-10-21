@@ -4,7 +4,7 @@ import { MessageContext } from "./MessageProvider"
 import { Button, Container, Header, Icon, Message, Input, Modal } from "semantic-ui-react"
 
 export const MessageCard = ({ message, thread }) => {
-    const { deleteMessage, updateMessage } = useContext(MessageContext)
+    const { deleteMessage, updateMessage, getMessages } = useContext(MessageContext)
 
     const messageContent = useRef(`${message.message}`)
     const [open, setOpen] = useState(false)
@@ -79,6 +79,7 @@ export const MessageCard = ({ message, thread }) => {
                     </Modal>
                     <Button negative type="button" onClick={() => {
                         deleteMessage(message.id)
+                        getMessages()
                     }}>Delete</Button>
                 </Message>
                 
