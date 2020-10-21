@@ -1,18 +1,23 @@
 import React, { useContext, useEffect, useState, useRef } from "react"
 import { MessageContext } from "./MessageProvider"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import { MessageCard } from "./MessageCard"
-import { Input, Button } from "semantic-ui-react"
+import { Input, Button, Checkbox, Icon, Header } from "semantic-ui-react"
 import { FriendContext } from "../friend/FriendProvider"
 import "./Message.css"
 import { FriendSearch } from "../friend/FriendSearch"
+import { useInterval } from "../useInterval"
 
 export const MessageList = () => {
     const { messages, getMessages, addMessage } = useContext(MessageContext)
     const { friends, getFriends } = useContext(FriendContext)
 
+    const [update, setUpdate] = useState(false)
     const {friendId} = useParams()
     const messageContent = useRef("")
+    const history = useHistory()
+
+    useInterval(getMessages, update ? 3000 : null)
 
     useEffect(() => {
         getMessages()
@@ -34,7 +39,8 @@ export const MessageList = () => {
             date: new Date(Date.now()).toLocaleString("en-US"),
             message: messageContent.current.inputRef.current.value,
             threadOneId: myFriend.id,
-            threadTwoId: otherThread.id
+            threadTwoId: otherThread.id,
+            edited: false
         })
 
         messageContent.current.inputRef.current.value = ""
@@ -42,6 +48,16 @@ export const MessageList = () => {
 
     return (
         <>
+            <Button type="button" onClick={() => {
+                history.push("/messages")
+            }}>Back to Threads</Button>
+            <div className="messages--header">
+                    <Header as='h2'><Icon name="comments" />Messages</Header>
+                    <Checkbox toggle
+                        onChange={() => setUpdate(!update)}
+                        label={update ? "Disable real-time updates" : "Allow real-time updates"}
+                    />
+            </div>
             <section className="messages--container">
                 {
                     threadMessages.map(message => {

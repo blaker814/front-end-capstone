@@ -1,10 +1,13 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, useRef } from "react"
 import { useHistory } from "react-router-dom"
 import { MessageContext } from "./MessageProvider"
-import { Button, Container, Header, Icon, Message } from "semantic-ui-react"
+import { Button, Container, Header, Icon, Message, Input, Modal } from "semantic-ui-react"
 
 export const MessageCard = ({ message, thread }) => {
     const { deleteMessage, updateMessage } = useContext(MessageContext)
+
+    const messageContent = useRef(`${message.message}`)
+    const [open, setOpen] = useState(false)
 
     const handleRemoveMessage = () => {
         if (thread.id === message.threadOneId) {
@@ -14,7 +17,8 @@ export const MessageCard = ({ message, thread }) => {
                 date: message.date,
                 message: message.message,
                 threadOneId: null,
-                threadTwoId: message.threadTwoId
+                threadTwoId: message.threadTwoId,
+                edited: message.edited
             })
         } else {
             updateMessage({
@@ -23,11 +27,12 @@ export const MessageCard = ({ message, thread }) => {
                 date: message.date,
                 message: message.message,
                 threadOneId: message.threadOneId,
-                threadTwoId: null
+                threadTwoId: null,
+                edited: message.edited
             })
         }
     }
-
+    
     if (message.userId === parseInt(localStorage.getItem("cs_user"))) {
         // global chat for current user
         return (
@@ -37,14 +42,46 @@ export const MessageCard = ({ message, thread }) => {
 
                     <p className="message--content">{message.message}</p>
                     <p className="message--date" style={{ fontSize: "x-small" }}>{message.date}</p>
-
-                    <Button type="button" onClick={() => {
-                        
-                    }}>Edit</Button>
+                    <p className="message--edited" style={{ fontSize: "x-small" }}>{message.edited ? "Edited" : undefined}</p>
+                    <Modal
+                        size="mini"
+                        onClose={() => setOpen(false)}
+                        onOpen={() => setOpen(true)}
+                        open={open}
+                        trigger={<Button type="button" style={{ marginBottom: 25 }}>Edit</Button>}
+                    >
+                        <Modal.Content>
+                            <Input type="text" ref={messageContent} defaultValue={message.message} fluid />
+                        </Modal.Content>
+                        <Modal.Actions>
+                            <Button
+                                primary
+                                className="addBtn"
+                                onClick={() => {
+                                    updateMessage({
+                                        id: message.id,
+                                        userId: message.userId,
+                                        date: message.date,
+                                        message: messageContent.current.inputRef.current.value,
+                                        threadOneId: message.threadOneId,
+                                        threadTwoId: message.threadTwoId,
+                                        edited: true      
+                                    })
+                                    setOpen(false)
+                                }}
+                            >
+                                Save Changes
+                            </Button>
+                            <Button className="cancelBtn" onClick={() => setOpen(false)}>
+                                Cancel
+                            </Button>
+                        </Modal.Actions>
+                    </Modal>
                     <Button negative type="button" onClick={() => {
                         deleteMessage(message.id)
                     }}>Delete</Button>
                 </Message>
+                
             </Container>
         )  
     } else {

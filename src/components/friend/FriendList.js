@@ -80,8 +80,6 @@ export const FriendList = () => {
                     <h2><Icon name="address book" />Friends</h2>
                 </div>
 
-                <Divider />
-
                 <Modal
                     size="mini"
                     onClose={() => setOpen(false)}

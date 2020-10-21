@@ -34,9 +34,19 @@ export const FriendProvider = (props) => {
         })
     }
 
+    const updateFriend = friend => {
+        return fetch(`http://localhost:8088/friends/${friend.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(friend)
+        })
+    }
+
     return (
         <FriendContext.Provider value={{
-            friends, getFriends, addFriend, removeFriend, getFriendsById, searchTerms, setSearchTerms
+            friends, getFriends, addFriend, removeFriend, getFriendsById, searchTerms, setSearchTerms, updateFriend
         }}>
             {props.children}
         </FriendContext.Provider>
