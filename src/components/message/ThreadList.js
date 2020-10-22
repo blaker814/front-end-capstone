@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { ThreadCard } from "./ThreadCard"
-import { FriendContext, FriendProvider } from "../friend/FriendProvider";
+import { FriendContext } from "../friend/FriendProvider";
 import { Button, Modal, Input } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 

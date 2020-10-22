@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react"
 import { FriendContext } from "./FriendProvider"
 import { FriendCard } from "./FriendCard"
 import { UserContext } from "../user/UserProvider"
-import { Button, Divider, Modal, Input, Icon } from "semantic-ui-react"
+import { Button, Modal, Input, Icon } from "semantic-ui-react"
 import "./Friend.css"
 
 export const FriendList = () => {

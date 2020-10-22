@@ -1,17 +1,36 @@
-import React, { useContext, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { Button } from "semantic-ui-react"
-import { GiftListContext } from "./GiftListProvider"
+import React, { useContext, useEffect, useState } from "react"
+import { Table } from "semantic-ui-react"
+import { CelebrationContext } from "../celebration/CelebrationProvider"
+import { LinkContext } from "./LinkProvider"
 
-export const GiftCard = ({ giftList }) => {
-    const { removeGiftList } = useContext(GiftListContext)
+export const GiftCard = ({ gift }) => {
+    const { getCelebrationById } = useContext(CelebrationContext)
+    const { getLinksByGiftId } = useContext(LinkContext)
+
+    const [celebration, setCelebration] = useState({})
+    const [links, setLinks] = useState([{}])
+
+    useEffect(() => {
+        getLinksByGiftId(gift.id)
+        .then(setLinks)
+        .then(() => {
+            if (gift.celebrationId !== null) {
+                getCelebrationById(gift.celebrationId).then(setCelebration)
+            }
+        })
+    }, [])
 
     return (
-        <section className="gift">
-            <h3><Link to={`/gifts/table/${giftList.id}`}>{giftList.giftsFor}</Link></h3>
-            <Button negative type="button" onClick={() => {
-                removeGiftList(giftList.id)
-            }}>Delete</Button>
-        </section>
+        <Table.Row>      
+            <Table.Cell>{gift.gift}</Table.Cell>
+            <Table.Cell>${gift.price}</Table.Cell>
+            <Table.Cell>
+                {
+                    (links === []) ? "N/A" : links.map(link => <div key={link.id}><a href={link.link}>{link.link}</a></div>)
+                }
+            </Table.Cell>
+            <Table.Cell>{celebration.name}</Table.Cell>
+            <Table.Cell>{gift.purchased ? "Yes" : "No"}</Table.Cell>
+        </Table.Row>
     )
 }

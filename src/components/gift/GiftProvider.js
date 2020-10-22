@@ -6,7 +6,7 @@ export const GiftProvider = (props) => {
     const [gifts, setGifts] = useState([])
 
     const getGifts = () => {
-        return fetch("http://localhost:8088/gifts")
+        return fetch("http://localhost:8088/gifts?sort=id&order=desc")
             .then(res => res.json())
             .then(setGifts)
     }
@@ -19,7 +19,8 @@ export const GiftProvider = (props) => {
             },
             body: JSON.stringify(gift)
         })
-        .then(getGifts)
+        .then(() => fetch("http://localhost:8088/gifts?_sort=id&_order=desc&_limit=1"))
+        .then(res => res.json())
     }
 
     const removeGift = id => {
@@ -44,9 +45,14 @@ export const GiftProvider = (props) => {
             .then(res => res.json())
     }
 
+    const getGiftsByTableId = id => {
+        return fetch(`http://localhost:8088/gifts?giftListId=${id}`)
+            .then(res => res.json())
+    }
+
     return (
         <GiftContext.Provider value={{
-            gifts, getGifts, addGift, removeGift, updateGift, getGiftById
+            gifts, getGifts, addGift, removeGift, updateGift, getGiftById, getGiftsByTableId
         }}>
             {props.children}
         </GiftContext.Provider>

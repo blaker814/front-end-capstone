@@ -17,6 +17,11 @@ export const GiftListProvider = (props) => {
             .then(setGiftLists)
     }
 
+    const getGiftListById = id => {
+        return fetch(`http://localhost:8088/giftLists/${id}`)
+            .then(res => res.json())
+    }
+
     const addGiftList = giftList => {
         return fetch("http://localhost:8088/giftLists", {
             method: "POST",
@@ -47,7 +52,7 @@ export const GiftListProvider = (props) => {
 
     return (
         <GiftListContext.Provider value={{
-            giftLists, getGiftListsById, addGiftList, removeGiftList, updateGiftList, searchTerms, setSearchTerms
+            giftLists, getGiftListsById, addGiftList, removeGiftList, updateGiftList, getGiftListById, searchTerms, setSearchTerms
         }}>
             {props.children}
         </GiftListContext.Provider>

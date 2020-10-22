@@ -39,9 +39,14 @@ export const LinkProvider = (props) => {
         })
     }
 
+    const getLinksByGiftId = id => {
+        return fetch(`http://localhost:8088/links?giftId=${id}`)
+            .then(res => res.json()) 
+    }
+
     return (
         <LinkContext.Provider value={{
-            links, getLinks, addLink, removeLink, updateLink
+            links, getLinks, addLink, removeLink, updateLink, getLinksByGiftId
         }}>
             {props.children}
         </LinkContext.Provider>

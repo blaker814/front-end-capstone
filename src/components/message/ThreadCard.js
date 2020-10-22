@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { FriendContext } from "../friend/FriendProvider"
 
 export const ThreadCard = ({ friend }) => {
-    const { messages, getMessages, updateMessage, deleteMessage } = useContext(MessageContext)
+    const { messages, getMessages, updateMessage } = useContext(MessageContext)
     const { getFriends, updateFriend } = useContext(FriendContext)
     
     useEffect(() => {

@@ -5,7 +5,6 @@ import { MessageCard } from "./MessageCard"
 import { Input, Button, Checkbox, Icon, Header } from "semantic-ui-react"
 import { FriendContext } from "../friend/FriendProvider"
 import "./Message.css"
-import { FriendSearch } from "../friend/FriendSearch"
 import { useInterval } from "../useInterval"
 
 export const MessageList = () => {

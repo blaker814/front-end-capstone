@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { GiftListContext } from "./GiftListProvider";
-import { GiftCard } from "./GiftCard";
+import { GiftListCard } from "./GiftListCard";
 import "./Gift.css"
 import { Button, Modal, Input } from "semantic-ui-react";
-import { useHistory } from "react-router-dom";
 
 export const GiftList = () => {
     const { searchTerms, giftLists, getGiftListsById, addGiftList } = useContext(GiftListContext)
@@ -11,7 +10,6 @@ export const GiftList = () => {
     const [filteredGifts, setFiltered] = useState([])
     const [open, setOpen] = useState(false)
     const giftsFor = useRef()
-    const history = useHistory()
 
     useEffect(() => {
         getGiftListsById(localStorage.getItem("cs_user"))
@@ -76,7 +74,7 @@ export const GiftList = () => {
             <div className="gifts">
                 {
                     filteredGifts?.map(gl => {
-                        return <GiftCard key={gl.id} giftList={gl} />
+                        return <GiftListCard key={gl.id} giftList={gl} />
                     })
                 }
             </div>

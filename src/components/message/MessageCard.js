@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect, useRef } from "react"
-import { useHistory } from "react-router-dom"
+import React, { useContext, useState, useRef } from "react"
 import { MessageContext } from "./MessageProvider"
-import { Button, Container, Header, Icon, Message, Input, Modal } from "semantic-ui-react"
+import { Button, Container, Header, Message, Input, Modal } from "semantic-ui-react"
 
 export const MessageCard = ({ message, thread }) => {
     const { deleteMessage, updateMessage, getMessages } = useContext(MessageContext)
