@@ -5,6 +5,7 @@ export const GiftListContext = createContext()
 export const GiftListProvider = (props) => {
     const [giftLists, setGiftLists] = useState([])
     const [ searchTerms, setSearchTerms ] = useState("")
+    const userId = parseInt(localStorage.getItem("cs_user"))
 
     const getGiftListsById = id => {
         return fetch(`http://localhost:8088/giftLists?userId=${id}&_embed=links`)
@@ -25,14 +26,14 @@ export const GiftListProvider = (props) => {
             },
             body: JSON.stringify(giftList)
         })
-        .then(getGiftListsById)
+        .then(() => getGiftListsById(userId))
     }
 
     const removeGiftList = id => {
         return fetch(`http://localhost:8088/giftLists/${id}`, {
             method: "DELETE"
         })
-        .then(getGiftListsById)
+        .then(() => getGiftListsById(userId))
     }
 
     const updateGiftList = giftList => {

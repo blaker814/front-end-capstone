@@ -24,7 +24,7 @@ export const GiftCard = ({ gift }) => {
             }
         })
     }, [])
-
+console.log(giftLinks)
     return (
         <Table.Row>   
             <Table.Cell>
@@ -47,10 +47,10 @@ export const GiftCard = ({ gift }) => {
             <Table.Cell>${gift.price}</Table.Cell>
             <Table.Cell>
                 {
-                    (giftLinks === []) ? "None" : giftLinks.map(gl=> <div key={gl.id}><a href={gl.link}>{gl.link}</a></div>)
+                    giftLinks.length > 0 ? giftLinks.map(gl=> <div key={gl.id}><a href={gl.link}>{gl.link}</a></div>) : "None"
                 }
             </Table.Cell>
-            <Table.Cell>{celebration.name}</Table.Cell>
+            <Table.Cell>{gift.celebrationId ? celebration.name : "Any"}</Table.Cell>
             <Table.Cell>{gift.purchased ? "Yes" : "No"}</Table.Cell>
         </Table.Row>
     )

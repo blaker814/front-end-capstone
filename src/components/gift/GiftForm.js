@@ -7,7 +7,7 @@ import { LinkContext } from "./LinkProvider"
 
 export const GiftForm = () => {    
     const { getGiftById, updateGift, addGift } = useContext(GiftContext)
-    const { getCelebrations, getCelebrationById, celebrations } = useContext(CelebrationContext)
+    const { getCelebrationsByUserId, getCelebrationById, celebrations } = useContext(CelebrationContext)
     const { addLink, updateLink, removeLink, getLinksByGiftId } = useContext(LinkContext)
 
     const [gift, setGift] = useState({})
@@ -20,7 +20,7 @@ export const GiftForm = () => {
     const params = useParams({})
 
     useEffect(() => {
-        getCelebrations()
+        getCelebrationsByUserId(localStorage.getItem("cs_user"))
         .then(() => {
             if (params.giftId) {
                 getGiftById(params.giftId)
@@ -73,8 +73,8 @@ export const GiftForm = () => {
                     id: parseInt(params.giftId),
                     gift: gift.gift,
                     price: parseInt(gift.price),
-                    purchased: gift.purchased === "yes" ? true : false,
-                    celebrationId: gift.celebrationId,
+                    purchased: chosen === "yes" ? true : false,
+                    celebrationId: gift.celebrationId ? gift.celebration : undefined,
                     giftListId: parseInt(params.tableId)
                 }),
                 giftLinks.map(gl => {
@@ -98,7 +98,7 @@ export const GiftForm = () => {
                 gift: gift.gift,
                 price: parseInt(gift.price),
                 purchased: gift.purchased === "yes" ? true : false,
-                celebrationId: parseInt(gift.celebrationId),
+                celebrationId: gift.celebrationId ? parseInt(gift.celebrationId) : undefined,
                 giftListId: parseInt(params.tableId)
             })
             .then(res => { 
@@ -116,16 +116,6 @@ export const GiftForm = () => {
             .then(() => history.push(`/gifts/table/${params.tableId}`))
         }
     }
-
-    const dropdownOptions = celebrations?.map(celebration => {
-        if (celebration.userId === parseInt(localStorage.getItem("cs_user"))) {
-            return {
-                key: celebration.id,
-                text: celebration.name,
-                value: celebration.id
-            }
-        }
-    })
 
     return (
         <Form className="giftForm" onSubmit={evt => {
@@ -159,7 +149,7 @@ export const GiftForm = () => {
                     <input type="url" id="links--0" name="links--0"
                     className="form-control" placeholder="https://"
                     onChange={handleLinks} 
-                    defaultValue={giftLinks ? giftLinks[0].link : undefined} />
+                    defaultValue={giftLinks ? giftLinks[0]?.link : undefined} />
                     {params.giftId ? <Button type="button" onClick={() => {
                         removeLink(giftLinks[0].id)
                     }}>Delete</Button> : undefined}
@@ -221,15 +211,14 @@ export const GiftForm = () => {
             </Form.Field>
             <Form.Field>
                 <div className="form-group">
-                    <Dropdown 
-                        selection
-                        type="dropdown" 
-                        name="celebrationId" 
-                        placeholder="Please select a celebration..." 
-                        options={dropdownOptions} 
-                        value={celebration.id}
-                        onChange={handleDropdownChange}
-                    />
+                    <select name="celebrationId" value={celebration.id} onChange={handleDropdownChange} required={chosen==="yes"}>
+                        <option value="" hidden>Please select a celebration...</option>
+                        {
+                            celebrations?.map(celebration => {
+                                return <option key={celebration.id} value={celebration.id}>{celebration.name}</option>
+                            })
+                        }
+                    </select>
                 </div>
             </Form.Field>
             <Button primary type="submit"

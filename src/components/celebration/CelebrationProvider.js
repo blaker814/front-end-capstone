@@ -4,9 +4,10 @@ export const CelebrationContext = createContext()
 
 export const CelebrationProvider = (props) => {
     const [celebrations, setCelebrations] = useState([])
+    const userId = localStorage.getItem("cs_user")
 
-    const getCelebrations = () => {
-        return fetch("http://localhost:8088/celebrations")
+    const getCelebrationsByUserId = id => {
+        return fetch(`http://localhost:8088/celebrations?userId=${id}`)
             .then(res => res.json())
             .then(setCelebrations)
     }
@@ -19,14 +20,14 @@ export const CelebrationProvider = (props) => {
             },
             body: JSON.stringify(celebration)
         })
-        .then(getCelebrations)
+        .then(() => getCelebrationsByUserId(userId))
     }
 
     const removeCelebration = id => {
         return fetch(`http://localhost:8088/celebrations/${id}`, {
             method: "DELETE"
         })
-        .then(getCelebrations)
+        .then(() => getCelebrationsByUserId(userId))
     }
 
     const getCelebrationsByDate = date => {
@@ -51,7 +52,7 @@ export const CelebrationProvider = (props) => {
 
     return (
         <CelebrationContext.Provider value={{
-            celebrations, getCelebrations, addCelebration, removeCelebration, getCelebrationsByDate, getCelebrationById, updateCelebration
+            celebrations, getCelebrationsByUserId, addCelebration, removeCelebration, getCelebrationsByDate, getCelebrationById, updateCelebration
         }}>
             {props.children}
         </CelebrationContext.Provider>

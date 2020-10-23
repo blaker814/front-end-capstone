@@ -15,7 +15,7 @@ export const MessageCard = ({ message, thread }) => {
                 userId: message.userId,
                 date: message.date,
                 message: message.message,
-                threadOneId: null,
+                threadOneId: undefined,
                 threadTwoId: message.threadTwoId,
                 edited: message.edited
             })
@@ -26,7 +26,7 @@ export const MessageCard = ({ message, thread }) => {
                 date: message.date,
                 message: message.message,
                 threadOneId: message.threadOneId,
-                threadTwoId: null,
+                threadTwoId: undefined,
                 edited: message.edited
             })
         }
