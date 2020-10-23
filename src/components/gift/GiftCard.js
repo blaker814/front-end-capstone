@@ -24,7 +24,7 @@ export const GiftCard = ({ gift }) => {
             }
         })
     }, [])
-console.log(giftLinks)
+
     return (
         <Table.Row>   
             <Table.Cell>
