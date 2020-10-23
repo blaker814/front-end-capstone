@@ -7,21 +7,21 @@ import { GiftCard } from "./GiftCard"
 
 export const GiftTable = () => {
     const { getGiftListById } = useContext(GiftListContext)
-    const { getGiftsByTableId } = useContext(GiftContext)
+    const { gifts, getGiftsByTableId } = useContext(GiftContext)
 
     const history = useHistory()
     const {tableId} = useParams({})
     const [list, setList] = useState({})
-    const [gifts, setGifts] = useState([{}])
+    const [tableGifts, setTableGifts] = useState([])
 
     useEffect(() => {
         getGiftListById(tableId)
         .then(setList)
         .then(() => getGiftsByTableId(tableId))
-        .then(res => setGifts(res))
-    }, [])
+        .then(res => setTableGifts(res))
+    }, [gifts])
 
-    const header = ["gift", "price", "links", "celebration", "purchased?"]
+    const header = ["", "gift", "price", "links", "celebration", "purchased?"]
 
     return (
         <>
@@ -36,7 +36,7 @@ export const GiftTable = () => {
                 <Table.Header>
                     <Table.Row>
                         {
-                            header?.map((item, i) => {
+                            header.map((item, i) => {
                                 return <Table.HeaderCell key={`item--${i}`} >{item.toUpperCase()}</Table.HeaderCell>   
                             })
                         }
@@ -45,7 +45,7 @@ export const GiftTable = () => {
 
                 <Table.Body>
                     {
-                        gifts?.map(gift => {
+                        tableGifts?.map(gift => {
                             return <GiftCard key={gift.id} gift={gift} />
                         })
                     }

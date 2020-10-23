@@ -1,32 +1,53 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Table } from "semantic-ui-react"
+import { Table, Button, Icon } from "semantic-ui-react"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { LinkContext } from "./LinkProvider"
+import { useHistory, useParams } from "react-router-dom"
+import { GiftContext } from "./GiftProvider"
 
 export const GiftCard = ({ gift }) => {
     const { getCelebrationById } = useContext(CelebrationContext)
-    const { getLinksByGiftId } = useContext(LinkContext)
+    const { getLinksByGiftId, getLinks, links, removeLink } = useContext(LinkContext)
+    const { removeGift } = useContext(GiftContext)
 
     const [celebration, setCelebration] = useState({})
-    const [links, setLinks] = useState([{}])
+    const [giftLinks, setGiftLinks] = useState([])
+    const history = useHistory()
+    const {tableId} = useParams()
 
     useEffect(() => {
         getLinksByGiftId(gift.id)
-        .then(setLinks)
+        .then(setGiftLinks)
         .then(() => {
-            if (gift.celebrationId !== null) {
+            if (gift.celebrationId) {
                 getCelebrationById(gift.celebrationId).then(setCelebration)
             }
         })
     }, [])
 
     return (
-        <Table.Row>      
+        <Table.Row>   
+            <Table.Cell>
+                <Button type="button" onClick={() => {
+                    history.push(`/gifts/edit/${tableId}/${gift.id}`)
+                }}>Edit</Button>
+                <Button onClick={() => {
+                    getLinks()
+                    .then(() => {
+                        links.forEach(link => {
+                            if (link.giftId === gift.id) {
+                                removeLink(link.id)
+                            }
+                        })
+                        removeGift(gift.id)
+                    })
+                }}>Delete</Button>
+            </Table.Cell>   
             <Table.Cell>{gift.gift}</Table.Cell>
             <Table.Cell>${gift.price}</Table.Cell>
             <Table.Cell>
                 {
-                    (links === []) ? "N/A" : links.map(link => <div key={link.id}><a href={link.link}>{link.link}</a></div>)
+                    (giftLinks === []) ? "None" : giftLinks.map(gl=> <div key={gl.id}><a href={gl.link}>{gl.link}</a></div>)
                 }
             </Table.Cell>
             <Table.Cell>{celebration.name}</Table.Cell>

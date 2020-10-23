@@ -7,13 +7,14 @@ import { LinkContext } from "./LinkProvider"
 
 export const GiftForm = () => {    
     const { getGiftById, updateGift, addGift } = useContext(GiftContext)
-    const { getCelebrations, celebrations } = useContext(CelebrationContext)
-    const { addLink, updateLink } = useContext(LinkContext)
+    const { getCelebrations, getCelebrationById, celebrations } = useContext(CelebrationContext)
+    const { addLink, updateLink, removeLink, getLinksByGiftId } = useContext(LinkContext)
 
     const [gift, setGift] = useState({})
     const [giftLinks, setGiftLinks] = useState([{}])
     const [chosen, setChosen] = useState({})
     const [isLoading, setIsLoading] = useState(true);
+    const [celebration, setCelebration] = useState({})
 
     const history = useHistory()
     const params = useParams({})
@@ -26,10 +27,12 @@ export const GiftForm = () => {
                 .then(gift => {
                     setGift(gift)
                     setIsLoading(false)
+                    gift.purchased ? setChosen("yes") : setChosen("no")
+                    getLinksByGiftId(params.giftId).then(setGiftLinks)
+                    if (gift.celebrationId) {
+                        getCelebrationById(gift.celebrationId).then(setCelebration)
+                    }
                 })
-            } else if (gift.links) {
-                setGiftLinks(gift.links)
-                setIsLoading(false)
             } else {
                 setIsLoading(false)
             }
@@ -51,6 +54,7 @@ export const GiftForm = () => {
 
     const handleDropdownChange = (event, data) => {
         const newGift = { ...gift }
+        setCelebration(data.value)
         newGift[data.name] = data.value
         setGift(newGift)
     }
@@ -74,11 +78,18 @@ export const GiftForm = () => {
                     giftListId: parseInt(params.tableId)
                 }),
                 giftLinks.map(gl => {
-                    return updateLink({
-                        id: gl.id,
-                        link: gl.link,
-                        giftId: parseInt(params.giftId)
-                    })
+                    if (gl.link && gl.id) {
+                        return updateLink({
+                            id: gl.id,
+                            link: gl.link,
+                            giftId: parseInt(params.giftId)
+                        })
+                    } else if (gl.link) {
+                        return addLink({
+                            link: gl.link,
+                            giftId: parseInt(params.giftId)
+                        })
+                    }
                 })
             ])
             .then(() => history.push(`/gifts/table/${params.tableId}`))
@@ -130,7 +141,7 @@ export const GiftForm = () => {
                     <input type="text" id="giftName" name="gift" required autoFocus 
                     className="form-control" placeholder="Name of gift..." 
                     onChange={handleControlledInputChange} 
-                    defaultValue={gift.name}/>
+                    defaultValue={gift.gift}/>
                 </div>
             </Form.Field>
             <Form.Field>
@@ -148,22 +159,35 @@ export const GiftForm = () => {
                     <input type="url" id="links--0" name="links--0"
                     className="form-control" placeholder="https://"
                     onChange={handleLinks} 
-                    defaultValue={gift.links ? gift.links[0].link : undefined} />
+                    defaultValue={giftLinks ? giftLinks[0].link : undefined} />
+                    {params.giftId ? <Button type="button" onClick={() => {
+                        removeLink(giftLinks[0].id)
+                    }}>Delete</Button> : undefined}
                 </div>
             </Form.Field>
             {
                 giftLinks?.map((gl, i) => {
                     if (i !== 0) {
                         return (
-                            <Form.Field key={i}>
+                            <Form.Field key={`links--${i}`}>
                                 <div className="form-group">
                                     <input type="url" 
                                     id={`links--${i}`} 
                                     name={`links--${i}`} 
+                                    required
                                     className="form-control"  
                                     placeholder="https://"
                                     onChange={handleLinks} 
                                     defaultValue={gl.link ? gl.link : undefined} />
+                                    <Button type="button" onClick={() => {
+                                        if(gl.id) {
+                                            removeLink(gl.id) 
+                                        } else {                                                  
+                                            const values = [...giftLinks];
+                                            values.pop();
+                                            setGiftLinks(values)
+                                        }
+                                    }}>Delete</Button>
                                 </div>
                             </Form.Field>
                         )
@@ -184,13 +208,13 @@ export const GiftForm = () => {
                     style={{ marginLeft: 15, marginRight: 25 }}
                     checked={chosen === "yes"}
                     onChange={handleRadioChange} 
-                    defaultValue={gift.purchased}/>
+                    />
                 
                     <Checkbox radio label="No" id="no" name="purchased" required
                     value="no"
                     checked={chosen === "no"}
                     onChange={handleRadioChange} 
-                    defaultValue={gift.purchased}/>  
+                    />  
             </Form.Field>
             <Form.Field>
                 If so, for what celebration?
@@ -203,6 +227,7 @@ export const GiftForm = () => {
                         name="celebrationId" 
                         placeholder="Please select a celebration..." 
                         options={dropdownOptions} 
+                        value={celebration.id}
                         onChange={handleDropdownChange}
                     />
                 </div>

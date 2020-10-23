@@ -6,11 +6,6 @@ export const GiftListProvider = (props) => {
     const [giftLists, setGiftLists] = useState([])
     const [ searchTerms, setSearchTerms ] = useState("")
 
-    // const getGiftLists = () => {
-    //     return fetch("http://localhost:8088/giftLists")
-    //         .then(res => res.json())
-    // }
-
     const getGiftListsById = id => {
         return fetch(`http://localhost:8088/giftLists?userId=${id}&_embed=links`)
             .then(res => res.json())
@@ -52,7 +47,7 @@ export const GiftListProvider = (props) => {
 
     return (
         <GiftListContext.Provider value={{
-            giftLists, getGiftListsById, addGiftList, removeGiftList, updateGiftList, getGiftListById, searchTerms, setSearchTerms
+            giftLists, getGiftListsById, addGiftList, removeGiftList, updateGiftList, getGiftListById,searchTerms, setSearchTerms
         }}>
             {props.children}
         </GiftListContext.Provider>

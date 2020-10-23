@@ -98,7 +98,7 @@ export const ApplicationViews = (props) => {
                 <GiftProvider>
                     <LinkProvider>
                         <CelebrationProvider>
-                            <Route exact path="/gifts/create/:tableId(\d+)/:giftId(\d+)">
+                            <Route exact path="/gifts/edit/:tableId(\d+)/:giftId(\d+)">
                                 <GiftForm />
                             </Route>
                         </CelebrationProvider>
