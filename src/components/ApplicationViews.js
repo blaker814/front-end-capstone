@@ -1,6 +1,6 @@
 import React from "react"
 import { Route } from "react-router-dom"
-import { Home } from "./home/Home"
+import { HomeReminders } from "./home/HomeReminders"
 import { CelebrationCalendar } from "./celebration/CelebrationCalendar"
 import { GiftList } from "./gift/GiftList"
 import { BudgetList } from "./budget/BudgetList"
@@ -25,9 +25,11 @@ import { GiftForm } from "./gift/GiftForm"
 export const ApplicationViews = (props) => {
     return (
         <>
-            <Route exact path="/">
-                <Home />
-            </Route>
+            <CelebrationProvider>
+                <Route exact path="/">
+                    <HomeReminders />
+                </Route>
+            </CelebrationProvider>
 
             <CelebrationProvider>
                 <Route exact path="/celebrations">

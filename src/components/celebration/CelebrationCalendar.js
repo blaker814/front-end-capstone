@@ -17,6 +17,7 @@ export const CelebrationCalendar = () => {
 
     return ( 
         <div>
+            <h2>Celebrations Calendar</h2>
             <Button type="button" onClick={() => {
                 history.push("/celebrations/create")
             }}>Add Celebration</Button>
