@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
-import { Button, Icon, Dropdown, Checkbox, Form } from "semantic-ui-react"
+import { Button, Icon, Checkbox, Form } from "semantic-ui-react"
 import { useHistory, useParams } from "react-router-dom"
 import { GiftContext } from "./GiftProvider"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
@@ -11,7 +11,7 @@ export const GiftForm = () => {
     const { addLink, updateLink, removeLink, getLinksByGiftId } = useContext(LinkContext)
 
     const [gift, setGift] = useState({})
-    const [giftLinks, setGiftLinks] = useState([{}])
+    const [giftLinks, setGiftLinks] = useState([{ link: ""}])
     const [chosen, setChosen] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const [celebration, setCelebration] = useState({})
@@ -28,7 +28,11 @@ export const GiftForm = () => {
                     setGift(gift)
                     setIsLoading(false)
                     gift.purchased ? setChosen("yes") : setChosen("no")
-                    getLinksByGiftId(params.giftId).then(setGiftLinks)
+                    getLinksByGiftId(params.giftId).then(res => {
+                        if (res.length > 0) {
+                            setGiftLinks(res)
+                        }
+                    })
                     if (gift.celebrationId) {
                         getCelebrationById(gift.celebrationId).then(setCelebration)
                     }
@@ -52,16 +56,16 @@ export const GiftForm = () => {
         setGift(newGift)
     }
 
-    const handleDropdownChange = (event, data) => {
+    const handleDropdownChange = (event) => {
         const newGift = { ...gift }
-        setCelebration(data.value)
-        newGift[data.name] = data.value
+        setCelebration(event.target.value)
+        newGift[event.target.name] = event.target.value
         setGift(newGift)
     }
 
     const handleLinks = (event) => {
         const newLinks = [ ...giftLinks ]
-        newLinks[event.target.name.split("--")[1]].link = event.target.value
+        newLinks[event.target.name].link = event.target.value
         setGiftLinks(newLinks)
     }
 
@@ -74,7 +78,7 @@ export const GiftForm = () => {
                     gift: gift.gift,
                     price: parseInt(gift.price),
                     purchased: chosen === "yes" ? true : false,
-                    celebrationId: gift.celebrationId ? gift.celebration : undefined,
+                    celebrationId: gift.celebrationId ? parseInt(gift.celebrationId) : undefined,
                     giftListId: parseInt(params.tableId)
                 }),
                 giftLinks.map(gl => {
@@ -89,6 +93,8 @@ export const GiftForm = () => {
                             link: gl.link,
                             giftId: parseInt(params.giftId)
                         })
+                    } else if (gl.id) {
+                        removeLink(gl.id)
                     }
                 })
             ])
@@ -146,13 +152,10 @@ export const GiftForm = () => {
             <Form.Field>
                 <div className="form-group">
                     <label htmlFor="links">Links to gifts</label>
-                    <input type="url" id="links--0" name="links--0"
+                    <input type="url" id="links--0" name="0"
                     className="form-control" placeholder="https://"
                     onChange={handleLinks} 
-                    defaultValue={giftLinks ? giftLinks[0]?.link : undefined} />
-                    {params.giftId ? <Button type="button" onClick={() => {
-                        removeLink(giftLinks[0].id)
-                    }}>Delete</Button> : undefined}
+                    value={giftLinks[0].link} />
                 </div>
             </Form.Field>
             {
@@ -163,20 +166,22 @@ export const GiftForm = () => {
                                 <div className="form-group">
                                     <input type="url" 
                                     id={`links--${i}`} 
-                                    name={`links--${i}`} 
+                                    name={i} 
                                     required
+                                    value={gl.link}
                                     className="form-control"  
                                     placeholder="https://"
                                     onChange={handleLinks} 
-                                    defaultValue={gl.link ? gl.link : undefined} />
-                                    <Button type="button" onClick={() => {
-                                        if(gl.id) {
-                                            removeLink(gl.id) 
-                                        } else {                                                  
-                                            const values = [...giftLinks];
-                                            values.pop();
-                                            setGiftLinks(values)
+                                    />
+                                    <Button type="button" onClick={() => {                                             
+                                        const values = [...giftLinks];
+                                        const value = values.find(value => value.link === gl.link)
+                                        const valueIndex = values.indexOf(value)
+                                        if (value.id) {
+                                            removeLink(value.id)
                                         }
+                                        values.splice(valueIndex, 1)
+                                        setGiftLinks(values)
                                     }}>Delete</Button>
                                 </div>
                             </Form.Field>
@@ -186,7 +191,7 @@ export const GiftForm = () => {
             }
             <Button type="button" onClick={() => {
                 const values = [...giftLinks];
-                values.push({});
+                values.push({ link: ""});
                 setGiftLinks(values);
             }}><Icon name="add"/>Link</Button>
             <Form.Field>

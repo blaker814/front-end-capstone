@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Table, Button, Icon } from "semantic-ui-react"
+import { Table, Button } from "semantic-ui-react"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { LinkContext } from "./LinkProvider"
 import { useHistory, useParams } from "react-router-dom"
