@@ -177,11 +177,11 @@ export const GiftForm = () => {
                                         const values = [...giftLinks];
                                         const value = values.find(value => value.link === gl.link)
                                         const valueIndex = values.indexOf(value)
+                                        values.splice(valueIndex, 1)
+                                        setGiftLinks(values)
                                         if (value.id) {
                                             removeLink(value.id)
                                         }
-                                        values.splice(valueIndex, 1)
-                                        setGiftLinks(values)
                                     }}>Delete</Button>
                                 </div>
                             </Form.Field>
