@@ -31,7 +31,7 @@ export const BudgetProvider = (props) => {
     }
 
     const getBudgetById = id => {
-        return fetch(`http://localhost:8088/budgets/${id}`)
+        return fetch(`http://localhost:8088/budgets/${id}?_expand=celebration`)
         .then(res => res.json())
     }
 

@@ -19,14 +19,12 @@ export const LinkProvider = (props) => {
             },
             body: JSON.stringify(link)
         })
-        .then(getLinks)
     }
 
     const removeLink = id => {
         return fetch(`http://localhost:8088/links/${id}`, {
             method: "DELETE"
         })
-        .then(getLinks)
     }
 
     const updateLink = link => {

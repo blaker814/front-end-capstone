@@ -9,9 +9,10 @@ import { useInterval } from "../useInterval"
 
 export const MessageList = () => {
     const { messages, getMessages, addMessage } = useContext(MessageContext)
-    const { friends, getFriends } = useContext(FriendContext)
+    const { friends, getFriends, getFriend, updateFriend } = useContext(FriendContext)
 
     const [update, setUpdate] = useState(false)
+    const [friend, setFriend] = useState({})
     const {friendId} = useParams()
     const messageContent = useRef("")
     const history = useHistory()
@@ -22,6 +23,17 @@ export const MessageList = () => {
         getMessages()
         getFriends()
     }, [])
+
+    useEffect(() => {
+        if (friend.id) {
+            updateFriend({
+                id: friend.id,
+                activeUserId: friend.activeUserId,
+                userId: friend.userId,
+                threadExist: true
+            })
+        }
+    }, [friend])
 
     const threadMessages = messages.filter(message => {
         return message.threadOneId === parseInt(friendId) || message.threadTwoId === parseInt(friendId)
@@ -42,6 +54,7 @@ export const MessageList = () => {
             edited: false
         })
 
+        getFriend(otherThread).then(res => setFriend(res[0]))
         messageContent.current.inputRef.current.value = ""
     }
 

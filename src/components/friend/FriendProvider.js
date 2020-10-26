@@ -17,6 +17,11 @@ export const FriendProvider = (props) => {
             .then(res => res.json())
     }
 
+    const getFriend = friend => {
+        return fetch(`http://localhost:8088/friends?activeUserId=${friend.activeUserId}&userId=${friend.userId}&_expand=user`)
+            .then(res => res.json())
+    }
+
     const addFriend = friend => {
         return fetch("http://localhost:8088/friends", {
             method: "POST",
@@ -46,7 +51,7 @@ export const FriendProvider = (props) => {
 
     return (
         <FriendContext.Provider value={{
-            friends, getFriends, addFriend, removeFriend, getFriendsById, searchTerms, setSearchTerms, updateFriend
+            friends, getFriends, getFriend, addFriend, removeFriend, getFriendsById, searchTerms, setSearchTerms, updateFriend
         }}>
             {props.children}
         </FriendContext.Provider>
