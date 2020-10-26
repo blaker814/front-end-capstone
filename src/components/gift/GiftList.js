@@ -37,6 +37,7 @@ export const GiftList = () => {
         } else {
             addGiftList({
                 giftsFor: name,
+                forSelf: false,
                 userId: parseInt(localStorage.getItem("cs_user")),
             })
         }

@@ -4,18 +4,26 @@ import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { LinkContext } from "./LinkProvider"
 import { useHistory, useParams } from "react-router-dom"
 import { GiftContext } from "./GiftProvider"
+import { GiftListContext } from "./GiftListProvider"
 
 export const GiftCard = ({ gift }) => {
     const { getCelebrationById } = useContext(CelebrationContext)
+    const { getUsersGiftList, getGiftListById } = useContext(GiftListContext)
     const { getLinksByGiftId, getLinks, links, removeLink } = useContext(LinkContext)
     const { removeGift } = useContext(GiftContext)
 
     const [celebration, setCelebration] = useState({})
     const [giftLinks, setGiftLinks] = useState([])
+    const [table, setTable] = useState({})
     const history = useHistory()
     const {tableId} = useParams()
 
     useEffect(() => {
+        if (!tableId) {
+            getUsersGiftList(localStorage.getItem("cs_user")).then(res => setTable(res[0]))
+        } else {
+            getGiftListById(tableId).then(setTable)
+        }
         getLinksByGiftId(gift.id)
         .then(setGiftLinks)
         .then(() => {
@@ -29,7 +37,7 @@ export const GiftCard = ({ gift }) => {
         <Table.Row>   
             <Table.Cell>
                 <Button type="button" onClick={() => {
-                    history.push(`/gifts/edit/${tableId}/${gift.id}`)
+                    history.push(`/gifts/edit/${table.id}/${gift.id}`)
                 }}>Edit</Button>
                 <Button onClick={() => {
                     getLinks()

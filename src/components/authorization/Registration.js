@@ -1,7 +1,8 @@
-import React, { useRef } from "react"
+import React, { useRef, useContext } from "react"
 import { useHistory } from "react-router-dom"
 import { Button } from "semantic-ui-react"
 import "./Login.css"
+import { GiftContext } from "../gift/GiftProvider"
 
 export const Register = (props) => {
     const firstName = useRef()
@@ -48,9 +49,22 @@ export const Register = (props) => {
                         .then(createdUser => {
                             if (createdUser.hasOwnProperty("id")) {
                                 localStorage.setItem("cs_user", createdUser.id)
-                                history.push("/")
                             }
                         })
+                        .then(() => {
+                            fetch("http://localhost:8088/giftLists", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    giftsFor: "me",
+                                    forSelf: true,
+                                    userId: parseInt(localStorage.getItem("cs_user"))
+                                })
+                            })
+                        })
+                        .then(() => history.push("/"))
                 }
                 else {
                     conflictDialog.current.showModal()

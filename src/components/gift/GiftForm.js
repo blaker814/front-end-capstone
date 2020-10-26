@@ -4,12 +4,15 @@ import { useHistory, useParams } from "react-router-dom"
 import { GiftContext } from "./GiftProvider"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { LinkContext } from "./LinkProvider"
+import { GiftListContext } from "./GiftListProvider"
 
 export const GiftForm = () => {    
     const { getGiftById, updateGift, addGift } = useContext(GiftContext)
+    const { getGiftListById } = useContext(GiftListContext)
     const { getCelebrationsByUserId, getCelebrationById, celebrations } = useContext(CelebrationContext)
     const { addLink, updateLink, removeLink, getLinksByGiftId } = useContext(LinkContext)
 
+    const [table, setTable] = useState({})
     const [gift, setGift] = useState({})
     const [giftLinks, setGiftLinks] = useState([{ link: ""}])
     const [chosen, setChosen] = useState({})
@@ -20,7 +23,9 @@ export const GiftForm = () => {
     const params = useParams({})
 
     useEffect(() => {
-        getCelebrationsByUserId(localStorage.getItem("cs_user"))
+        getGiftListById(params.tableId)
+        .then(setTable)
+        .then(() => getCelebrationsByUserId(localStorage.getItem("cs_user")))
         .then(() => {
             if (params.giftId) {
                 getGiftById(params.giftId)
@@ -98,7 +103,13 @@ export const GiftForm = () => {
                     }
                 })
             ])
-            .then(() => history.push(`/gifts/table/${params.tableId}`))
+            .then(() => {
+                if (table.forSelf === false) {
+                    history.push(`/gifts/table/${params.tableId}`)
+                } else {
+                    history.push("/")
+                }
+            })
         } else {
             addGift({
                 gift: gift.gift,
@@ -119,7 +130,13 @@ export const GiftForm = () => {
                     })
                 ])
             })
-            .then(() => history.push(`/gifts/table/${params.tableId}`))
+            .then(() => {
+                if (table.forSelf === false) {
+                    history.push(`/gifts/table/${params.tableId}`)
+                } else {
+                    history.push("/")
+                }
+            })
         }
     }
 
@@ -195,7 +212,7 @@ export const GiftForm = () => {
                 setGiftLinks(values);
             }}><Icon name="add"/>Link</Button>
             <Form.Field>
-                Have you purchased this gift?
+                {table.forSelf === false ? "Have you purchased this gift?" : "Has this gift been bought for you?"}
             </Form.Field>
             <Form.Field>
                     <Checkbox radio label="Yes" id="yes" name="purchased" required
@@ -212,7 +229,7 @@ export const GiftForm = () => {
                     />  
             </Form.Field>
             <Form.Field>
-                If so, for what celebration?
+                Select the celebration associated with this gift
             </Form.Field>
             <Form.Field>
                 <div className="form-group">
@@ -232,7 +249,11 @@ export const GiftForm = () => {
                 {params.giftId ? "Save gift" : "Add gift"}
             </Button>
             <Button type="button" onClick={() => {
-                history.push(`/gifts/table/${params.tableId}`)
+                if (table.forSelf === false) {
+                    history.push(`/gifts/table/${params.tableId}`)
+                } else {
+                    history.push("/")
+                }
             }}>Cancel</Button>
         </Form>
     )

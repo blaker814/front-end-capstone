@@ -1,6 +1,7 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { HomeReminders } from "./home/HomeReminders"
+import { HomeGiftTable } from "./home/HomeGiftTable"
 import { CelebrationCalendar } from "./celebration/CelebrationCalendar"
 import { GiftList } from "./gift/GiftList"
 import { BudgetList } from "./budget/BudgetList"
@@ -30,9 +31,16 @@ export const ApplicationViews = (props) => {
     return (
         <>
             <CelebrationProvider>
-                <Route exact path="/">
-                    <HomeReminders />
-                </Route>
+                <GiftListProvider>
+                    <GiftProvider>
+                        <LinkProvider>
+                            <Route exact path="/">
+                                <HomeReminders />
+                                <HomeGiftTable />
+                            </Route>
+                        </LinkProvider>
+                    </GiftProvider>
+                </GiftListProvider>
             </CelebrationProvider>
 
             <CelebrationProvider>
