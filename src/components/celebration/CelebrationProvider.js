@@ -36,7 +36,7 @@ export const CelebrationProvider = (props) => {
     }
 
     const getCelebrationById = id => {
-        return fetch(`http://localhost:8088/celebrations/${id}`)
+        return fetch(`http://localhost:8088/celebrations/${id}?_embed=gifts`)
         .then(res => res.json())
     }
 

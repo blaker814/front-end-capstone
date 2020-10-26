@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CelebrationContext } from "./CelebrationProvider";
 import { CalendarCard } from "./CalendarCard"
 import { Button } from "semantic-ui-react";
@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 export const CelebrationCalendar = () => {
     const { celebrations, getCelebrationsByUserId } = useContext(CelebrationContext)
-
+  
     const history = useHistory()
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const CelebrationCalendar = () => {
             }}>Add Celebration</Button>
             <section>
                 {
-                    dates.sort().map(date => {
+                    dates?.sort().map(date => {
                         return <CalendarCard key={date} date={date} /> 
                     })
                 }

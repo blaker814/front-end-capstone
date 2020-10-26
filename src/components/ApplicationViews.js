@@ -21,6 +21,10 @@ import { LinkProvider } from "./gift/LinkProvider"
 import { GiftTable } from "./gift/GiftTable"
 import { GiftSearch } from "./gift/GiftSearch"
 import { GiftForm } from "./gift/GiftForm"
+import { BudgetProvider } from "./budget/BudgetProvider"
+import { BudgetForm } from "./budget/BudgetForm"
+import { BudgetTable } from "./budget/BudgetTable"
+import { BudgetSearch } from "./budget/BudgetSearch"
 
 export const ApplicationViews = (props) => {
     return (
@@ -108,9 +112,38 @@ export const ApplicationViews = (props) => {
                 </GiftProvider>
             </GiftListProvider>
 
-            <Route exact path="/budgets">
-                <BudgetList />
-            </Route>
+            <BudgetProvider>
+                <CelebrationProvider>
+                    <Route exact path="/budgets">
+                        <BudgetSearch />
+                        <BudgetList />
+                    </Route>
+                </CelebrationProvider>
+            </BudgetProvider>
+
+            <BudgetProvider>
+                <CelebrationProvider>
+                    <Route exact path="/budgets/table/:budgetId(\d+)">
+                        <BudgetTable />
+                    </Route>
+                </CelebrationProvider>
+            </BudgetProvider>
+
+            <BudgetProvider>
+                <CelebrationProvider>
+                    <Route exact path="/budgets/create">
+                        <BudgetForm />
+                    </Route>
+                </CelebrationProvider>
+            </BudgetProvider>
+
+            <BudgetProvider>
+                <CelebrationProvider>
+                    <Route exact path="/budgets/edit/:budgetId(\d+)">
+                        <BudgetForm />
+                    </Route>
+                </CelebrationProvider>
+            </BudgetProvider>
 
             <MessageProvider>
                 <FriendProvider>
