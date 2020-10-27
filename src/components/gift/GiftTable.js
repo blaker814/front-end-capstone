@@ -6,38 +6,62 @@ import { GiftContext } from "./GiftProvider"
 import { GiftCard } from "./GiftCard"
 
 export const GiftTable = () => {
-    const { getGiftListById } = useContext(GiftListContext)
+    const { getGiftListById, getUsersGiftList } = useContext(GiftListContext)
     const { gifts, getGiftsByTableId } = useContext(GiftContext)
 
     const history = useHistory()
-    const {tableId} = useParams({})
+    const params = useParams({})
     const [list, setList] = useState({})
     const [tableGifts, setTableGifts] = useState([])
 
     useEffect(() => {
-        getGiftListById(tableId)
-        .then(setList)
-        .then(() => getGiftsByTableId(tableId))
-        .then(res => setTableGifts(res))
+        if (params.tableId) {
+            getGiftListById(params.tableId)
+            .then(setList)
+            .then(() => getGiftsByTableId(params.tableId))
+            .then(res => setTableGifts(res))
+        } else {
+            getUsersGiftList(params.friendId).then(res => setList(res[0]))
+        }
     }, [gifts])
+
+    useEffect(() => {
+        if (params.friendId && list.id) {
+            getGiftsByTableId(list.id).then(setTableGifts)
+        }
+    }, [list])
 
     const header = ["", "gift", "price", "links", "celebration", "purchased?"]
 
     return (
         <>
-            <Button type="button" onClick={() => {
-                history.push("/gifts")
-            }}>Back to Gift Lists</Button>
-            <h3>Gift Ideas for {list?.giftsFor}</h3>
-            <Button type="button" onClick={() => {
-                history.push(`/gifts/create/${tableId}`)
-            }}>Add Gift</Button>
+            {params.tableId ? 
+                <>
+                    <Button type="button" onClick={() => {
+                        history.push("/gifts")
+                    }}>Back to Gift Lists</Button>
+                    <h3>Gift Ideas for {list?.giftsFor}</h3>
+                    <Button type="button" onClick={() => {
+                        history.push(`/gifts/create/${params.tableId}`)
+                    }}>Add Gift</Button>
+                </>
+                :
+                <Button type="button" onClick={() => {
+                    history.push("/friends")
+                }}>Back to Friends List</Button>
+            }
             <Table celled>
                 <Table.Header>
                     <Table.Row>
-                        {
+                        {params.tableId ?
                             header.map((item, i) => {
                                 return <Table.HeaderCell key={`item--${i}`} >{item.toUpperCase()}</Table.HeaderCell>   
+                            })
+                            :
+                            header.map((item, i) => {
+                                if (i !== 0) {
+                                    return <Table.HeaderCell key={`item--${i}`} >{item.toUpperCase()}</Table.HeaderCell>   
+                                }
                             })
                         }
                     </Table.Row>

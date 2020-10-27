@@ -16,13 +16,13 @@ export const GiftCard = ({ gift }) => {
     const [giftLinks, setGiftLinks] = useState([])
     const [table, setTable] = useState({})
     const history = useHistory()
-    const {tableId} = useParams()
+    const params = useParams()
 
     useEffect(() => {
-        if (!tableId) {
+        if (!params.tableId) {
             getUsersGiftList(localStorage.getItem("cs_user")).then(res => setTable(res[0]))
         } else {
-            getGiftListById(tableId).then(setTable)
+            getGiftListById(params.tableId).then(setTable)
         }
         getLinksByGiftId(gift.id)
         .then(setGiftLinks)
@@ -35,22 +35,26 @@ export const GiftCard = ({ gift }) => {
 
     return (
         <Table.Row>   
-            <Table.Cell>
-                <Button type="button" onClick={() => {
-                    history.push(`/gifts/edit/${table.id}/${gift.id}`)
-                }}>Edit</Button>
-                <Button onClick={() => {
-                    getLinks()
-                    .then(() => {
-                        links.forEach(link => {
-                            if (link.giftId === gift.id) {
-                                removeLink(link.id)
-                            }
+            {params.tableId ?
+                <Table.Cell>
+                    <Button type="button" onClick={() => {
+                        history.push(`/gifts/edit/${table.id}/${gift.id}`)
+                    }}>Edit</Button>
+                    <Button onClick={() => {
+                        getLinks()
+                        .then(() => {
+                            links.forEach(link => {
+                                if (link.giftId === gift.id) {
+                                    removeLink(link.id)
+                                }
+                            })
+                            removeGift(gift.id)
                         })
-                        removeGift(gift.id)
-                    })
-                }}>Delete</Button>
-            </Table.Cell>   
+                    }}>Delete</Button>
+                </Table.Cell>
+                :
+                undefined
+            }   
             <Table.Cell>{gift.gift}</Table.Cell>
             <Table.Cell>${gift.price}</Table.Cell>
             <Table.Cell>

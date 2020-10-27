@@ -20,18 +20,23 @@ export const BudgetForm = () => {
         getCelebrationsByUserId(userId)
         .then(() => {
             if (budgetId) {
-                getBudgetById(budgetId)
-                .then(budget => {
-                    setBudget(budget)
-                    setCelebration(budget.celebration)
-                    setIsLoading(false) 
-                })
+                getBudgetById(budgetId).then(setBudget)
             } else {
                 setIsLoading(false)
             }
         })
     }, [])
 
+    useEffect(() => {
+        if (budget.celebration?.id) {
+            getCelebrationById(budget.celebration.id).then(celebration => {
+                delete budget.celebration
+                setCelebration(celebration)
+                setIsLoading(false)
+            })
+        }
+    }, [budget])
+    
     const handleControlledInputChange = (event) => {
         const newBudget = { ...budget }
         newBudget[event.target.name] = event.target.value
@@ -40,17 +45,17 @@ export const BudgetForm = () => {
 
     const handleDropdownChange = (event) => {
         const newBudget = { ...budget }
+        
         newBudget[event.target.name] = event.target.value
         setBudget(newBudget)
-        getCelebrationById(event.target.value).then(res => {
-            setCelebration(res)
-        })
+        getCelebrationById(event.target.value).then(setCelebration)
     }
 
     const constructBudgetObject = () => {
-        const boughtGifts = celebration.gifts.map(gift => {
+        const boughtGifts = celebration.gifts?.map(gift => {
             return gift.purchased === true ? gift.price : null
         })
+        
         const amountSpent = boughtGifts.length > 0 ? boughtGifts.reduce((a,b) => a + b) : 0
 
         setIsLoading(false);

@@ -113,6 +113,18 @@ export const ApplicationViews = (props) => {
                 <GiftProvider>
                     <LinkProvider>
                         <CelebrationProvider>
+                            <Route exact path="/friends/table/:friendId(\d+)">
+                                <GiftTable />
+                            </Route>
+                        </CelebrationProvider>
+                    </LinkProvider>
+                </GiftProvider>
+            </GiftListProvider>
+
+            <GiftListProvider>
+                <GiftProvider>
+                    <LinkProvider>
+                        <CelebrationProvider>
                             <Route exact path="/gifts/create/:tableId(\d+)">
                                 <GiftForm />
                             </Route>
