@@ -130,14 +130,15 @@ export const CelebrationForm = () => {
                     <label htmlFor="isYearly"> One-time celebration</label>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset hidden={!celebration.date}>
                 <div className="form-group">
                     <label htmlFor="reminderStartDate">Celebration reminder start date: </label>
                     <input type="date" id="reminderStartDate" name="reminderStartDate" required 
                     className="form-control" placeholder="Celebration reminder start date" 
                     min={new Date(Date.now() - 18000000).toISOString().split("T")[0]}
+                    max={celebration.date}
                     onChange={handleControlledInputChange} 
-                    defaultValue={celebration.reminderStartDate} />
+                    defaultValue={celebration.reminderStartDate < new Date(Date.now() - 18000000).toISOString().split("T")[0] ? new Date(Date.now() - 18000000).toISOString().split("T")[0] : celebration.reminderStartDate} />
                 </div>
             </fieldset>
             <fieldset>

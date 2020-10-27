@@ -24,7 +24,9 @@ export const CelebrationCalendar = () => {
             <section>
                 {
                     dates?.sort().map(date => {
-                        return <CalendarCard key={date} date={date} /> 
+                        if (date >= new Date(Date.now() - 18000000).toISOString().split("T")[0]) {
+                            return <CalendarCard key={date} date={date} /> 
+                        }
                     })
                 }
             </section>

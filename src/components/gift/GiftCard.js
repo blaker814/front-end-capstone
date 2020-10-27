@@ -35,7 +35,7 @@ export const GiftCard = ({ gift }) => {
 
     return (
         <Table.Row>   
-            {params.tableId ?
+            {!params.friendId ?
                 <Table.Cell>
                     <Button type="button" onClick={() => {
                         history.push(`/gifts/edit/${table.id}/${gift.id}`)
