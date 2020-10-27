@@ -26,6 +26,8 @@ import { BudgetProvider } from "./budget/BudgetProvider"
 import { BudgetForm } from "./budget/BudgetForm"
 import { BudgetTable } from "./budget/BudgetTable"
 import { BudgetSearch } from "./budget/BudgetSearch"
+import { Home } from "./home/Home"
+import { ImageProvider } from "./image/ImageProvider"
 
 export const ApplicationViews = (props) => {
     return (
@@ -34,10 +36,13 @@ export const ApplicationViews = (props) => {
                 <GiftListProvider>
                     <GiftProvider>
                         <LinkProvider>
-                            <Route exact path="/">
-                                <HomeReminders />
-                                <HomeGiftTable />
-                            </Route>
+                            <UserProvider>
+                                <Route exact path="/">
+                                    <Home />
+                                    <HomeReminders />
+                                    <HomeGiftTable />
+                                </Route>
+                            </UserProvider>
                         </LinkProvider>
                     </GiftProvider>
                 </GiftListProvider>
@@ -50,27 +55,35 @@ export const ApplicationViews = (props) => {
             </CelebrationProvider>
 
             <CelebrationProvider>
-                <Route exact path="/celebrations/list/:date">
-                    <CelebrationList />
-                </Route>
+                <ImageProvider>
+                    <Route exact path="/celebrations/list/:date">
+                        <CelebrationList />
+                    </Route>
+                </ImageProvider>
             </CelebrationProvider>
 
             <CelebrationProvider>
-                <Route exact path="/celebrations/create">
-                    <CelebrationForm />
-                </Route>
+                <ImageProvider>
+                    <Route exact path="/celebrations/create">
+                        <CelebrationForm />
+                    </Route>
+                </ImageProvider>
             </CelebrationProvider>
 
             <CelebrationProvider>
-                <Route exact path="/celebrations/create/:date">
-                    <CelebrationForm />
-                </Route>
+                <ImageProvider>
+                    <Route exact path="/celebrations/create/:date">
+                        <CelebrationForm />
+                    </Route>
+                </ImageProvider>
             </CelebrationProvider>
 
             <CelebrationProvider>
-                <Route exact path="/celebrations/edit/:celebrationId(\d+)">
-                    <CelebrationForm />
-                </Route>
+                <ImageProvider>
+                    <Route exact path="/celebrations/edit/:celebrationId(\d+)">
+                        <CelebrationForm />
+                    </Route>
+                </ImageProvider>
             </CelebrationProvider>
 
             <GiftListProvider>

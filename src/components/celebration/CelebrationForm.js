@@ -2,14 +2,17 @@ import React, { useContext, useState, useEffect } from "react"
 import { CelebrationContext } from "./CelebrationProvider"
 import { useParams, useHistory } from "react-router-dom"
 import { Button } from "semantic-ui-react"
+import { ImageContext } from "../image/ImageProvider"
 
 export const CelebrationForm = () => {
     const { addCelebration, updateCelebration, getCelebrationById } = useContext(CelebrationContext)
+    const { addImage, getImageById } = useContext(ImageContext)
 
     const [celebration, setCelebration] = useState({})
     const [isLoading, setIsLoading] = useState(true);
-    const [isChecked, setIsChecked] = useState(false)
-
+    const [isChecked, setIsChecked] = useState(false);
+    const [image, setImage] = useState("")
+    
     const history = useHistory()
     const params = useParams()
 
@@ -19,7 +22,6 @@ export const CelebrationForm = () => {
             getCelebrationById(params.celebrationId)
             .then(celebration => {
                 setCelebration(celebration)
-                setIsLoading(false)
                 params.celebrationDate = celebration.date
                 setIsChecked(!celebration.isYearly)
             })
@@ -27,6 +29,15 @@ export const CelebrationForm = () => {
             setIsLoading(false)
         }
     }, [])
+
+    useEffect(() => {
+        if (celebration.imageId) {
+            getImageById(celebration.imageId).then(res => {
+                setImage(res)
+                setIsLoading(false)
+            })
+        }
+    }, [celebration])
 
     const handleControlledInputChange = event => {
         const newCelebration = { ...celebration }
@@ -43,7 +54,7 @@ export const CelebrationForm = () => {
                 date: celebration.date,
                 reminderStartDate: celebration.reminderStartDate,
                 about: celebration.about,
-                imageId: 1,
+                imageId: image.id,
                 isYearly: !isChecked,
                 userId: parseInt(localStorage.getItem("cs_user"))
             })
@@ -54,12 +65,36 @@ export const CelebrationForm = () => {
                 date: celebration.date,
                 reminderStartDate: celebration.reminderStartDate,
                 about: celebration.about,
-                imageId: 1,
+                imageId: image.id,
                 isYearly: !isChecked,
                 userId: parseInt(localStorage.getItem("cs_user"))
             })
             .then(() => history.push(`/celebrations/list/${celebration.date}`))
         }
+    }
+
+    const uploadImage = async e => {
+        const files = e.target.files[0]
+        const data = new FormData()
+        data.append("file", files)
+        data.append("upload_preset", "capstone-images")
+        setIsLoading(true)
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/blaker814/image/upload", {
+            method: "POST",
+            body: data
+        })
+
+        const file = await res.json()
+
+        const imageObj = await addImage({
+            image: file.secure_url,
+            custom: true,
+            userId: parseInt(localStorage.getItem("cs_user"))
+        })
+
+        setImage(imageObj)
+        setIsLoading(false)
     }
 
     return (
@@ -112,6 +147,13 @@ export const CelebrationForm = () => {
                     className="form-control" placeholder="Information about celebration" 
                     onChange={handleControlledInputChange} 
                     defaultValue={celebration.about}/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="file">Upload celebration image</label><br />
+                    <input type="file" name="file" onChange={uploadImage} defaultValue={image.image}/>
+                    {isLoading ? <h3>Loading...</h3> : <img src={image.image} style={{width: "300px"}} />}
                 </div>
             </fieldset>
             <Button type="submit"

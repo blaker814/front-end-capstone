@@ -8,7 +8,7 @@ export const GiftListProvider = (props) => {
     const userId = parseInt(localStorage.getItem("cs_user"))
 
     const getGiftListsById = id => {
-        return fetch(`http://localhost:8088/giftLists?userId=${id}&_embed=links`)
+        return fetch(`http://localhost:8088/giftLists?userId=${id}&forSelf=false&_embed=links`)
             .then(res => res.json())
             .then(setGiftLists)
     }

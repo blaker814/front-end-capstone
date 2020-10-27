@@ -8,7 +8,7 @@ export const FriendCard = ({ friend }) => {
     return (
         <section className="friend">
             <h3 className="friend__name">{friend.user.username}</h3>
-            <p>Name: {friend.user.name}</p>
+            <p>Name: {friend.user.firstName} {friend.user.lastName}</p>
             <p>Birthday: {friend.user.birthday.split("/").splice(0, 2).join("/")}</p>
             <Button icon negative type="button" style={{ marginLeft: 10 }} onClick={() => {
                 //returns the inverse of the friendship

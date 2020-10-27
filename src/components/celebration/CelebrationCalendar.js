@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { CelebrationContext } from "./CelebrationProvider";
 import { CalendarCard } from "./CalendarCard"
 import { Button } from "semantic-ui-react";

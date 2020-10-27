@@ -23,7 +23,7 @@ export const FriendList = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = userFriends.filter(friend => {
-                return friend.user.name.toLowerCase().includes(searchTerms) || friend.user.username.toLowerCase().includes(searchTerms)
+                return friend.user.firstName.toLowerCase().includes(searchTerms) || friend.user.lastName.toLowerCase().includes(searchTerms) || friend.user.username.toLowerCase().includes(searchTerms)
             })
             setFiltered(subset)
         } else {

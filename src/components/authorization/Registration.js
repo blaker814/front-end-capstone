@@ -1,8 +1,7 @@
-import React, { useRef, useContext } from "react"
+import React, { useRef } from "react"
 import { useHistory } from "react-router-dom"
 import { Button } from "semantic-ui-react"
 import "./Login.css"
-import { GiftContext } from "../gift/GiftProvider"
 
 export const Register = (props) => {
     const firstName = useRef()
@@ -40,7 +39,8 @@ export const Register = (props) => {
                         },
                         body: JSON.stringify({
                             email: email.current.value,
-                            name: `${firstName.current.value} ${lastName.current.value}`,
+                            firstName: firstName.current.value,
+                            lastName: lastName.current.value,
                             username: username.current.value,
                             birthday: new Date(`${birthday.current.value}T07:00:00Z`).toLocaleString("en-US").split(",")[0]
                         })
@@ -112,7 +112,7 @@ export const Register = (props) => {
 
                         <div className="registerBtns">
                             <fieldset>
-                                <Button primary type="submit"> Sign in </Button>
+                                <Button primary type="submit"> Register </Button>
                             </fieldset>
 
                             <fieldset>
