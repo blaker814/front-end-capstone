@@ -158,25 +158,31 @@ export const ApplicationViews = (props) => {
 
             <BudgetProvider>
                 <CelebrationProvider>
-                    <Route exact path="/budgets/table/:budgetId(\d+)">
-                        <BudgetTable />
-                    </Route>
+                    <GiftProvider>
+                        <Route exact path="/budgets/table/:budgetId(\d+)">
+                            <BudgetTable />
+                        </Route>
+                    </GiftProvider>
                 </CelebrationProvider>
             </BudgetProvider>
 
             <BudgetProvider>
                 <CelebrationProvider>
-                    <Route exact path="/budgets/create">
-                        <BudgetForm />
-                    </Route>
+                    <GiftProvider>
+                        <Route exact path="/budgets/create">
+                            <BudgetForm />
+                        </Route>
+                    </GiftProvider>
                 </CelebrationProvider>
             </BudgetProvider>
 
             <BudgetProvider>
                 <CelebrationProvider>
-                    <Route exact path="/budgets/edit/:budgetId(\d+)">
-                        <BudgetForm />
-                    </Route>
+                    <GiftProvider>
+                        <Route exact path="/budgets/edit/:budgetId(\d+)">
+                            <BudgetForm />
+                        </Route>
+                    </GiftProvider>
                 </CelebrationProvider>
             </BudgetProvider>
 

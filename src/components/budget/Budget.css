@@ -10,3 +10,12 @@
     padding: 1em;
     border: 1px solid lightgreen;
 }
+
+.budget-tables {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.budget-amounts {
+    display: flex;
+}

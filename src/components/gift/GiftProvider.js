@@ -50,9 +50,14 @@ export const GiftProvider = (props) => {
             .then(res => res.json())
     }
 
+    const getGiftsByCelebrationId = id => {
+        return fetch(`http://localhost:8088/gifts?celebrationId=${id}&purchased=true&_expand=giftList`)
+            .then(res => res.json())
+    }
+
     return (
         <GiftContext.Provider value={{
-            gifts, getGifts, addGift, removeGift, updateGift, getGiftById, getGiftsByTableId
+            gifts, getGifts, addGift, removeGift, updateGift, getGiftById, getGiftsByTableId, getGiftsByCelebrationId
         }}>
             {props.children}
         </GiftContext.Provider>

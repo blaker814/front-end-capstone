@@ -3,14 +3,17 @@ import { Button } from "semantic-ui-react"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { BudgetContext } from "./BudgetProvider"
 import { useParams, useHistory } from "react-router-dom"
+import { GiftContext } from "../gift/GiftProvider"
 
 export const BudgetForm = () => {
     const { updateBudget, addBudget, getBudgetById } = useContext(BudgetContext)
     const { getCelebrationsByUserId, celebrations, getCelebrationById } = useContext(CelebrationContext)
+    const { getGiftsByCelebrationId } = useContext(GiftContext)
     const userId = parseInt(localStorage.getItem("cs_user"))
 
     const [budget, setBudget] = useState({})
     const [celebration, setCelebration] = useState({})
+    const [celebrationGifts, setCelebrationGifts] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const history = useHistory()
 
@@ -32,10 +35,18 @@ export const BudgetForm = () => {
             getCelebrationById(budget.celebration.id).then(celebration => {
                 delete budget.celebration
                 setCelebration(celebration)
-                setIsLoading(false)
             })
         }
     }, [budget])
+
+    useEffect(() => {
+        if (celebration.id) {
+            getGiftsByCelebrationId(celebration.id).then(res => {
+                setCelebrationGifts(res)
+                setIsLoading(false)
+            })
+        }
+    }, [celebration])
     
     const handleControlledInputChange = (event) => {
         const newBudget = { ...budget }
@@ -52,8 +63,8 @@ export const BudgetForm = () => {
     }
 
     const constructBudgetObject = () => {
-        const boughtGifts = celebration.gifts?.map(gift => {
-            return gift.purchased === true ? gift.price : null
+        const boughtGifts = celebrationGifts?.map(cg => {
+            return cg.giftList.forSelf === false ? cg.price : null
         })
         
         const amountSpent = boughtGifts.length > 0 ? boughtGifts.reduce((a,b) => a + b) : 0
