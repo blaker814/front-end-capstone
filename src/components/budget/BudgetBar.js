@@ -16,7 +16,7 @@ const chartConfig = (names, gifts) => {
             labels: labels,
             datasets: [
             {
-                label: "Dollars spent per person",
+                label: "Dollars spent",
                 data: data,
                 backgroundColor: [
                 "rgba(255, 206, 86, 0.2)",
