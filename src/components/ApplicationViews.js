@@ -14,6 +14,7 @@ import { FriendSearch } from "./friend/FriendSearch"
 import { MessageProvider } from "./message/MessageProvider"
 import { MessageList } from "./message/MessageList"
 import { CelebrationProvider } from "./celebration/CelebrationProvider"
+import { CelebrationSearch } from "./celebration/CelebrationSearch"
 import { CelebrationList } from "./celebration/CelebrationList"
 import { CelebrationForm } from "./celebration/CelebrationForm"
 import { GiftListProvider } from "./gift/GiftListProvider"
@@ -50,6 +51,7 @@ export const ApplicationViews = (props) => {
 
             <CelebrationProvider>
                 <Route exact path="/celebrations">
+                    <CelebrationSearch />
                     <CelebrationCalendar />
                 </Route>
             </CelebrationProvider>

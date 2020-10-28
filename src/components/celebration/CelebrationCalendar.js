@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CelebrationContext } from "./CelebrationProvider";
 import { CalendarCard } from "./CalendarCard"
 import { Button } from "semantic-ui-react";
@@ -15,17 +15,31 @@ const handleDate = date => {
 }
 
 export const CelebrationCalendar = () => {
-    const { celebrations, getCelebrationsByUserId, updateCelebration } = useContext(CelebrationContext)
+    const { celebrations, getCelebrationsByUserId, updateCelebration, searchTerms } = useContext(CelebrationContext)
   
+    const [filtered, setFiltered] = useState([])
     const history = useHistory()
 
     useEffect(() => {
         getCelebrationsByUserId(localStorage.getItem("cs_user"))
     }, [])
+
+    useEffect(() => {
+        if (searchTerms !== "") {
+            // If the search field is not blank, display matching friends
+            const subset = celebrations.filter(celebration => {
+                return celebration.name.toLowerCase().includes(searchTerms)
+            })
+            setFiltered(subset)
+        } else {
+            // If the search field is blank, display all user friends
+            setFiltered(celebrations)
+        }
+    }, [searchTerms, celebrations])
     
     const futureDate = handleDate(todaysDate)
-    
-    const dates = [...new Set(celebrations.map(celebration => {
+
+    const dates = [...new Set(filtered.map(celebration => {
         if (celebration.date < todaysDate && celebration.isYearly === true) {
             celebration.date = handleDate(celebration.date)
             celebration.reminderStartDate = handleDate(celebration.reminderStartDate)

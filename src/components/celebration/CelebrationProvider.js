@@ -4,6 +4,7 @@ export const CelebrationContext = createContext()
 
 export const CelebrationProvider = (props) => {
     const [celebrations, setCelebrations] = useState([])
+    const [ searchTerms, setSearchTerms ] = useState("")
     const userId = localStorage.getItem("cs_user")
 
     const getCelebrationsByUserId = id => {
@@ -52,7 +53,7 @@ export const CelebrationProvider = (props) => {
 
     return (
         <CelebrationContext.Provider value={{
-            celebrations, getCelebrationsByUserId, addCelebration, removeCelebration, getCelebrationsByDate, getCelebrationById, updateCelebration
+            celebrations, getCelebrationsByUserId, addCelebration, removeCelebration, getCelebrationsByDate, getCelebrationById, updateCelebration, searchTerms, setSearchTerms
         }}>
             {props.children}
         </CelebrationContext.Provider>
