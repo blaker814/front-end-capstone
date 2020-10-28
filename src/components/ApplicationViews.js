@@ -39,9 +39,9 @@ export const ApplicationViews = (props) => {
                         <LinkProvider>
                             <UserProvider>
                                 <Route exact path="/">
-                                    <Home />
-                                    <HomeReminders />
-                                    <HomeGiftTable />
+                                        <Home />
+                                        <HomeReminders />
+                                        <HomeGiftTable />
                                 </Route>
                             </UserProvider>
                         </LinkProvider>

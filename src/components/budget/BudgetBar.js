@@ -16,7 +16,7 @@ const chartConfig = (names, gifts) => {
             labels: labels,
             datasets: [
             {
-                label: "Dollars spent",
+                label: "Amount spent",
                 data: data,
                 backgroundColor: [
                 "rgba(255, 206, 86, 0.2)",
@@ -42,9 +42,21 @@ const chartConfig = (names, gifts) => {
             scales: {
             yAxes: [
                 {
-                ticks: {
-                    beginAtZero: true
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Dollars"
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }
+            ],
+            xAxes: [
+                {
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Recipient"
+                    }
                 }
             ]
             }
@@ -62,7 +74,7 @@ export const BudgetBar = ({ names, gifts }) => {
     }, [chartContainer]);
 
     return (
-        <div style={{width: "40%"}}>
+        <div style={{width: "45%"}}>
             <canvas ref={chartContainer} />
         </div>
     );

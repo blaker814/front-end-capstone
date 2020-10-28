@@ -50,13 +50,18 @@ export const BudgetTable = () => {
 
     return (
         <>
-            <Button type="button" onClick={() => {
-                history.push("/budgets")
-            }}>Back to Budgets</Button>
+            <div className="budget-buttons">
+                <Button type="button" onClick={() => {
+                    history.push("/budgets")
+                }}>Back to Budgets</Button>
+                <Button type="button" onClick={() => {
+                        history.push(`/budgets/edit/${budget.id}`)
+                }}>Edit Budget</Button>
+            </div>
             <section>
-                <h2 style={{textAlign: "center"}}>{budget.name}</h2>
+                <h2 style={{textAlign: "center", marginBottom: "2em"}}>{budget.name}</h2>
                 <div className="budget-amounts">
-                    <p style={{marginRight: "1em"}}>{`Total budget: $${budget.total}`}</p>
+                    <p style={{marginBottom: "10em", marginRight: "2em"}}>{`Total budget: $${budget.total}`}</p>
                     <p>{`Total spent: $${budget.spent}`}</p>
                 </div>
                 <div className="budget-tables">
@@ -70,9 +75,6 @@ export const BudgetTable = () => {
                         purchasedFor.length > 0 ? <BudgetBar key={"barGraph"} names={purchasedFor} gifts={celebrationGifts} /> : undefined
                     }
                 </div>
-                <Button type="button" onClick={() => {
-                    history.push(`/budgets/edit/${budget.id}`)
-                }}>Edit Budget</Button>
             </section>
         </>
     )

@@ -18,4 +18,10 @@
 
 .budget-amounts {
     display: flex;
+    justify-content: center;
+}
+
+.budget-buttons {
+    display: flex;
+    justify-content: space-between;
 }

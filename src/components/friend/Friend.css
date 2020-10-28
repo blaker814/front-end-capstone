@@ -5,8 +5,24 @@
 }
 
 .friend {
-    flex-basis: 28%;
     margin: 1em;
+    border: 1px solid black;
+    width: 200px;
+    position: relative;
+}
+
+.friend > p {
+    margin: 2em 1em;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: lightgray;
     padding: 1em;
-    border: 1px solid lightgreen;
+    width: 100%;
+}
+
+.friend-name {
+    margin: auto 0;
 }

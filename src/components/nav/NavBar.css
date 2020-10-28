@@ -1,5 +1,5 @@
 .navbar__container {
-    background-color: rgb(107, 1, 107)
+    background-color: #fc6108bd
 }
 
 .navbar {
@@ -19,7 +19,7 @@
 }
 
 .navbar a:hover {
-    color: lightgreen;
+    color: black;
 }
 
 .navbar__logo {
@@ -31,13 +31,13 @@
 }
 
 .logout {
-    background-color: lightgreen;
+    background-color: rgba(155, 225, 243, 0.925);
     padding: 8px;
     border-radius: 5px;
 }
 
 .logout:hover {
-    box-shadow: 0 0 10px 2px lightgreen;
+    box-shadow: 0 0 10px 2px skyblue;
 }
 
 .logout a {
