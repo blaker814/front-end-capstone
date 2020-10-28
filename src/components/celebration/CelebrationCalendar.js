@@ -4,16 +4,35 @@ import { CalendarCard } from "./CalendarCard"
 import { Button } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
+const todaysDate = new Date(Date.now() - 18000000).toISOString().split("T")[0]
+
+const handleDate = date => {
+    let futureYear = (parseInt(todaysDate.split("-")[0]) + 1).toString()
+    date = date.split("-").splice(1)
+    date.unshift(futureYear)
+    date = date.join("-")
+    return date
+}
+
 export const CelebrationCalendar = () => {
-    const { celebrations, getCelebrationsByUserId } = useContext(CelebrationContext)
+    const { celebrations, getCelebrationsByUserId, updateCelebration } = useContext(CelebrationContext)
   
     const history = useHistory()
 
     useEffect(() => {
         getCelebrationsByUserId(localStorage.getItem("cs_user"))
     }, [])
-
-    const dates = [...new Set(celebrations.map(celebration => celebration.date))]
+    
+    const futureDate = handleDate(todaysDate)
+    
+    const dates = [...new Set(celebrations.map(celebration => {
+        if (celebration.date < todaysDate && celebration.isYearly === true) {
+            celebration.date = handleDate(celebration.date)
+            celebration.reminderStartDate = handleDate(celebration.reminderStartDate)
+            updateCelebration(celebration)
+        }
+        return celebration.date
+    }))]
 
     return ( 
         <div>
@@ -24,7 +43,7 @@ export const CelebrationCalendar = () => {
             <section>
                 {
                     dates?.sort().map(date => {
-                        if (date >= new Date(Date.now() - 18000000).toISOString().split("T")[0]) {
+                        if (date >= todaysDate && date < futureDate) {
                             return <CalendarCard key={date} date={date} /> 
                         }
                     })
