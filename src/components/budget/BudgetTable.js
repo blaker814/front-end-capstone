@@ -3,6 +3,7 @@ import { BudgetContext } from "./BudgetProvider"
 import { useParams, useHistory } from "react-router-dom"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { Button } from "semantic-ui-react"
+import { BudgetPie } from "./BudgetPie"
 
 export const BudgetTable = () => {
     const { getBudgetById } = useContext(BudgetContext)
@@ -43,6 +44,9 @@ export const BudgetTable = () => {
                     })
                 }
                 </ul>
+                {
+                    <BudgetPie key={budget.id} total={budget.total} spent={budget.spent} />
+                }
                 <Button type="button" onClick={() => {
                     history.push(`/budgets/edit/${budget.id}`)
                 }}>Edit Budget</Button>
