@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Form, Button } from "semantic-ui-react"
+import { Button } from "semantic-ui-react"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
 import { BudgetContext } from "./BudgetProvider"
 import { useParams, useHistory } from "react-router-dom"
@@ -91,7 +91,7 @@ export const BudgetForm = () => {
             <h2 className="budgetForm__title">
                 {budgetId ? "Update Budget" : "New Budget"}
             </h2>
-            <Form.Field>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="budgetName">Budget name: </label>
                     <input type="text" id="budgetName" name="name" required autoFocus 
@@ -99,8 +99,8 @@ export const BudgetForm = () => {
                     onChange={handleControlledInputChange} 
                     defaultValue={budget.name}/>
                 </div>
-            </Form.Field>
-            <Form.Field>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
                     <label htmlFor="total">Budget total: </label>
                     <input type="number" id="total" name="total" required
@@ -108,11 +108,11 @@ export const BudgetForm = () => {
                     onChange={handleControlledInputChange} 
                     defaultValue={budget.total}/>
                 </div>
-            </Form.Field>
-            <Form.Field>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
-                    <label htmlFor="celebrationId">Celebration for budget</label>
-                    <select id="celebrationId" name="celebrationId" value={celebration.id} onChange={handleDropdownChange} required>
+                    <label htmlFor="celebrationId">Celebration for budget:</label>
+                    <select id="celebrationId" className="form-control" name="celebrationId" value={celebration.id} onChange={handleDropdownChange} required>
                         <option value="" hidden>Please select a celebration...</option>
                         {
                             celebrations?.map(celebration => {
@@ -121,7 +121,7 @@ export const BudgetForm = () => {
                         }
                     </select>
                 </div>
-            </Form.Field>
+            </fieldset>
             <Button type="submit"
                 disabled = {isLoading}
                 className="btn btn-primary">
