@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { Icon, Image } from "semantic-ui-react"
-import logo from "../../img/cs-logo.png"
+import logo from "../../img/logo.jpg"
 import "./NavBar.css"
 
 export const NavBar = (props) => {
@@ -10,7 +10,7 @@ export const NavBar = (props) => {
             <ul className="navbar">
                 <li className="navbar__item active">
                     <Link className="navbar__link" to="/">
-                        <Image src={logo} alt="IBS logo" className="navbar__logo" />
+                        <Image src={logo} alt="Celebration Station logo" className="navbar-logo" />
                     </Link>
                 </li>
                 <li className="navbar__item active">

@@ -62,7 +62,7 @@ export const BudgetTable = () => {
                 <h2 style={{textAlign: "center", marginBottom: "2em"}}>{budget.name}</h2>
                 <div className="budget-amounts">
                     <p style={{marginBottom: "10em", marginRight: "2em"}}>{`Total budget: $${budget.total}`}</p>
-                    <p>{`Total spent: $${budget.spent}`}</p>
+                    <p>{`Remaining budget: $${budget.total - budget.spent}`}</p>
                 </div>
                 <div className="budget-tables">
                     {

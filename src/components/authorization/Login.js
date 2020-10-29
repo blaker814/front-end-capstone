@@ -2,7 +2,7 @@ import React, { useRef } from "react"
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom"
 import { Button, Divider } from "semantic-ui-react"
-import logo from "../../img/cs-logo.png"
+import logo from "../../img/landing-logo.png"
 import "./Login.css"
 
 
@@ -42,12 +42,14 @@ export const Login = props => {
 
                     <section>
                         <form className="form--login" onSubmit={handleLogin}>
-                            <img src={logo} alt="IBS logo" className="logo" />
-                            <h1>Welcome to Celebration Station!</h1>
+                            <img src={logo} alt="Celebration Station logo" className="logo" />
                             
-                            <Divider />
+                            <Divider style={{zIndex: 5}}/>
 
-                            <p className="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p className="about">Celebration Station is a place for all of the
+                            organized planning of celebratory events in your life. Registered 
+                            users are provided with all of the tools they need to get organized 
+                            and stay organized in regards to their celebrations.</p>
 
                             <Divider />
 
@@ -71,10 +73,6 @@ export const Login = props => {
                         <Link to="/register">Not a member yet?</Link>
                     </section>
                 </main>
-
-                {/* <video className="videoTag" autoPlay loop muted>
-                    <source src={video} type="video/mp4" />
-                </video> */}
             </div>
         </>
     )

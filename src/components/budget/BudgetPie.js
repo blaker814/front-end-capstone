@@ -10,13 +10,13 @@ const chartConfig = (total, spent ) => ({
             {
                 data: [spent, total-spent],
                 backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(75, 192, 192, 0.2)"
+                    "rgba(220, 99, 52, 0.4)",
+                    "rgba(76, 174, 151, 0.4)"
                     
                 ],
                 borderColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(75, 192, 192, 1)"
+                    "rgba(220, 99, 52, 1)",
+                    "rgba(76, 174, 151, 1)"
                      
                 ],
                 borderWidth: 1

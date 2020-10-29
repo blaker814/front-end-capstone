@@ -1,5 +1,5 @@
 .navbar__container {
-    background-color: #fc6108bd
+    background-color: rgba(220, 99, 52, .8)
 }
 
 .navbar {
@@ -22,8 +22,8 @@
     color: black;
 }
 
-.navbar__logo {
-    height: 40px;
+.navbar-logo {
+    height: 75px;
 }
 
 .navbar__item {
@@ -31,19 +31,19 @@
 }
 
 .logout {
-    background-color: rgba(155, 225, 243, 0.925);
+    /* background-color: rgb(118, 101, 57); */
     padding: 8px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
 
 .logout:hover {
-    box-shadow: 0 0 10px 2px skyblue;
+    box-shadow: 0 0 10px 2px rgb(234, 162, 88);
 }
 
 .logout a {
-    color: #111;
+    color: white;
 }
 
 .logout a:hover {
-    color: #111;
+    color: white;
 }
