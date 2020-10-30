@@ -50,7 +50,7 @@ export const GiftTable = () => {
                     history.push("/friends")
                 }}>Back to Friends List</Button>
             }
-            <Table celled fixed single line color={"teal"} inverted style={{opacity: ".9"}}>
+            <Table celled fixed color={"teal"} inverted style={{opacity: ".9"}}>
                 <Table.Header>
                     <Table.Row>
                         {params.tableId ?

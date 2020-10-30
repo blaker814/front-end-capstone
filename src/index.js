@@ -6,10 +6,10 @@ import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 
 ReactDOM.render(
-    <React.StrictMode>
+    
         <Router>
             <CelebrationStation />
         </Router>
-    </React.StrictMode>,
+    ,
     document.getElementById('root')
 );

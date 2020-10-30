@@ -57,7 +57,7 @@ export const GiftCard = ({ gift }) => {
             }   
             <Table.Cell>{gift.gift}</Table.Cell>
             <Table.Cell>{gift.price ? `$${gift.price}` : "TBD"}</Table.Cell>
-            <Table.Cell singleLine fixed>
+            <Table.Cell singleLine>
                 {
                     giftLinks.length > 0 ? giftLinks.map(gl=> <div key={gl.id} ><a className="card-links" href={gl.link}>{gl.link}</a></div>) : "None"
                 }

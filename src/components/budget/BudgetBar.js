@@ -29,6 +29,11 @@ const chartConfig = (names, gifts) => {
             ]
         },
         options: {
+            title: {
+                display: true,
+                text: "Budget Breakdown",
+                fontSize: 16
+            },
             scales: {
             yAxes: [
                 {

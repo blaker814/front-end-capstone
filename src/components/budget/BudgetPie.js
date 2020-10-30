@@ -5,7 +5,7 @@ const chartConfig = (total, spent ) => ({
     type: 'pie',
     
     data: {
-        labels: ["Total spent", "Remaining budget"],
+        labels: ["Total spent", "Total remaining"],
         datasets: [
             {
                 data: [spent, total-spent],
@@ -21,7 +21,14 @@ const chartConfig = (total, spent ) => ({
                 ],
                 borderWidth: 1
             }
-        ]
+        ] 
+    },
+    options: {
+        title: {
+            display: true,
+            text: "Budget",
+            fontSize: 16
+        }
     }
 })
 
