@@ -1,12 +1,12 @@
 .friends {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .friend {
     margin: 1em;
-    border: 1px solid black;
+    border: 1px solid #c95022;
     width: 200px;
     position: relative;
 }
@@ -15,12 +15,18 @@
     margin: 2em 1em;
 }
 
+.search-bar {
+    text-align: right;
+    margin: 1em 1em -3em 1em;
+}
+
 .card-header {
     display: flex;
     justify-content: space-between;
-    background-color: lightgray;
+    background-color: #c95022;
     padding: 1em;
     width: 100%;
+    color: white;
 }
 
 .friend-name {

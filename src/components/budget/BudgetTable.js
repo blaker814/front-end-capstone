@@ -8,7 +8,7 @@ import { GiftContext } from "../gift/GiftProvider"
 import { BudgetBar } from "./BudgetBar"
 
 export const BudgetTable = () => {
-    const { getBudgetById } = useContext(BudgetContext)
+    const { getBudgetById, updateBudget } = useContext(BudgetContext)
     const { getCelebrationById } = useContext(CelebrationContext)
     const { getGiftsByCelebrationId } = useContext(GiftContext)
 
@@ -16,12 +16,12 @@ export const BudgetTable = () => {
     const [celebration, setCelebration] = useState({})
     const [celebrationGifts, setCelebrationGifts] = useState([])
     const [purchasedFor, setPurchasedFor] = useState([])
+    const [amountSpent, setAmountSpent] = useState(null)
     const {budgetId} = useParams()
     const history = useHistory()
 
     useEffect(() => {
-        getBudgetById(budgetId)
-        .then(setBudget)
+        getBudgetById(budgetId).then(setBudget)
     }, [])
 
     useEffect(() => {
@@ -45,8 +45,31 @@ export const BudgetTable = () => {
             }))]
             const shoppedFor = forSomeone.filter(name => name !== undefined)
             setPurchasedFor(shoppedFor)
+            const boughtGifts = celebrationGifts.map(cg => {
+                if (cg.giftList.forSelf === false) {
+                    return cg.price
+                } else {
+                    return 0
+                }
+            })
+            setAmountSpent(boughtGifts.length > 0 ? boughtGifts.reduce((a,b) => a + b) : 0)
+            
         }
     }, [celebrationGifts])
+
+    useEffect(() => {
+        if (amountSpent !== null) {
+            budget.spent = amountSpent
+            setBudget(budget)
+            updateBudget({
+                id: budget.id,
+                name: budget.name,
+                total: budget.total,
+                spent: budget.spent,
+                celebrationId: budget.celebrationId
+            }) 
+        }
+    }, [amountSpent])
 
     return (
         <>
@@ -62,14 +85,14 @@ export const BudgetTable = () => {
                 <h2 style={{textAlign: "center", marginBottom: "2em"}}>{budget.name}</h2>
                 <div className="budget-amounts">
                     <p style={{marginBottom: "10em", marginRight: "2em"}}>{`Total budget: $${budget.total}`}</p>
-                    <p>{`Remaining budget: $${budget.total - budget.spent}`}</p>
+                    <p>{`Remaining budget: $${budget.total - amountSpent}`}</p>
                 </div>
                 <div className="budget-tables">
                     {
-                        budget.total - budget.spent < 0 ? 
-                            <h4>You are over budget by ${budget.spent-budget.total}!</h4>
+                        amountSpent === null ? undefined : budget.total - amountSpent < 0 ? 
+                            <h4>You are over budget by ${amountSpent-budget.total}!</h4>
                             :
-                            <BudgetPie key={budget.id} total={budget.total} spent={budget.spent} />
+                            <BudgetPie key={budget.id} total={budget.total} spent={amountSpent} />
                     }
                     {
                         purchasedFor.length > 0 ? <BudgetBar key={"barGraph"} names={purchasedFor} gifts={celebrationGifts} /> : undefined

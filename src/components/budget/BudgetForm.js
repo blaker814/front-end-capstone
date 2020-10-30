@@ -75,7 +75,7 @@ export const BudgetForm = () => {
             updateBudget({
                 id: parseInt(budgetId),
                 name: budget.name,
-                total: budget.total,
+                total: parseInt(budget.total),
                 spent: amountSpent,
                 celebrationId: parseInt(budget.celebrationId)
                 
@@ -84,7 +84,7 @@ export const BudgetForm = () => {
         } else {
             addBudget({
                 name: budget.name,
-                total: budget.total,
+                total: parseInt(budget.total),
                 spent: amountSpent,
                 celebrationId: parseInt(budget.celebrationId)
             })
@@ -95,53 +95,58 @@ export const BudgetForm = () => {
     }
 
     return (
-        <form className="budgetForm" onSubmit={evt => {
-            evt.preventDefault() // Prevent browser from submitting the form
-            constructBudgetObject()
-        }}>
-            <h2 className="budgetForm__title">
-                {budgetId ? "Update Budget" : "New Budget"}
-            </h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="budgetName">Budget name: </label>
-                    <input type="text" id="budgetName" name="name" required autoFocus 
-                    className="form-control" placeholder="Budget name..." 
-                    onChange={handleControlledInputChange} 
-                    defaultValue={budget.name}/>
+        <section className="budgetContainer">
+            <div className="container--budget">
+            <form className="form--budget" onSubmit={evt => {
+                evt.preventDefault() // Prevent browser from submitting the form
+                constructBudgetObject()
+            }}>
+                <h2 className="budgetForm__title">
+                    {budgetId ? "Update Budget" : "New Budget"}
+                </h2>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="budgetName">Budget name: </label>
+                        <input type="text" id="budgetName" name="name" required autoFocus 
+                        className="form-control" placeholder="Budget name..." 
+                        onChange={handleControlledInputChange} 
+                        defaultValue={budget.name}/>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="total">Budget total: </label>
+                        <input type="number" id="total" name="total" required
+                        className="form-control" placeholder="Budget total..." 
+                        onChange={handleControlledInputChange} 
+                        defaultValue={budget.total}/>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="celebrationId">Celebration for budget:</label>
+                        <select id="celebrationId" className="form-control" name="celebrationId" value={celebration.id} onChange={handleDropdownChange} required>
+                            <option value="" hidden>Please select a celebration...</option>
+                            {
+                                celebrations?.map(celebration => {
+                                    return <option key={celebration.id} value={celebration.id}>{celebration.name}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </fieldset>
+                <div className="budgetForm-buttons">
+                    <Button primary type="submit"
+                        disabled = {isLoading}
+                        className="btn btn-primary">
+                        {budgetId ? "Save Budget" : "Add Budget"}
+                    </Button>
+                    <Button type="button" onClick={() => {
+                        budgetId ? history.push(`/budgets/table/${budgetId}`) : history.push("/budgets")
+                    }}>Cancel</Button>
                 </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="total">Budget total: </label>
-                    <input type="number" id="total" name="total" required
-                    className="form-control" placeholder="Budget total..." 
-                    onChange={handleControlledInputChange} 
-                    defaultValue={budget.total}/>
-                </div>
-            </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="celebrationId">Celebration for budget:</label>
-                    <select id="celebrationId" className="form-control" name="celebrationId" value={celebration.id} onChange={handleDropdownChange} required>
-                        <option value="" hidden>Please select a celebration...</option>
-                        {
-                            celebrations?.map(celebration => {
-                                return <option key={celebration.id} value={celebration.id}>{celebration.name}</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </fieldset>
-            <Button type="submit"
-                disabled = {isLoading}
-                className="btn btn-primary">
-                {budgetId ? "Save Budget" : "Add Budget"}
-            </Button>
-            <Button type="button" onClick={() => {
-                budgetId ? history.push(`/budgets/table/${budgetId}`) : history.push("/budgets")
-            }}>Cancel</Button>
-        </form>
-
+            </form>
+            </div>
+        </section>
     )
 }

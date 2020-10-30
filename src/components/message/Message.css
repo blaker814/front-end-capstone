@@ -1,14 +1,14 @@
 .threads {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .thread {
-    flex-basis: 28%;
+    flex-basis: 30%;
     margin: 1em;
     padding: 1em;
-    border: 1px solid lightgreen;
+    border: 1px solid #c95022;
 }
 
 .messages--window {
@@ -16,7 +16,8 @@
 }
 
 .messageForm {
-    margin-top: 25px;
+    margin: 1em;
+    text-align: center;
 }
 
 .messages--header {
@@ -27,7 +28,7 @@
 }
 
 .messages--container {
-    height: 75vh;
+    height: 60vh;
     padding: 25px;
     margin-bottom: 25px;
     border: 1px solid #d1d1d1;

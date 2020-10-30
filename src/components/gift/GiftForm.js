@@ -141,7 +141,9 @@ export const GiftForm = () => {
     }
 
     return (
-        <Form className="giftForm" onSubmit={evt => {
+        <section className="giftContainer">
+            <div className="container--gift">
+        <Form className="form--gift" onSubmit={evt => {
             evt.preventDefault() // Prevent browser from submitting the form
             constructGiftObject()
         }}>
@@ -243,6 +245,7 @@ export const GiftForm = () => {
                     </select>
                 </div>
             </Form.Field>
+            <div className="giftForm-buttons">
             <Button primary type="submit"
                 disabled = {isLoading}
                 className="btn btn-primary">
@@ -255,6 +258,9 @@ export const GiftForm = () => {
                     history.push("/")
                 }
             }}>Cancel</Button>
+            </div>
         </Form>
+        </div>
+        </section>
     )
 }

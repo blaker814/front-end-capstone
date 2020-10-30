@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { BudgetContext } from "../budget/BudgetProvider"
-import { Input } from "semantic-ui-react"
+import { Search } from "semantic-ui-react"
 
 export const BudgetSearch = () => {
     const { setSearchTerms } = useContext(BudgetContext)
@@ -10,15 +10,14 @@ export const BudgetSearch = () => {
     }, [])
     
     return (
-        <>
-            <label htmlFor="budgetSearch">Search budgets: </label> 
-            <Input type="text"
+        <div className="search-bar">
+            <Search type="text"
                 className="input--wide"
                 id="budgetSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
                 placeholder="Search for a budget... " />
-        </>
+        </div>
     )
 }

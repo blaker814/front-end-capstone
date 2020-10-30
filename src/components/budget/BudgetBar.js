@@ -11,7 +11,7 @@ const chartConfig = (names, gifts) => {
         const amountSpent = giftsForName.reduce((a, b) => a + b)
         labels.push(name)
         data.push(amountSpent)
-        backgroundColor.push("rgba(234, 162, 88, 0.4)")
+        backgroundColor.push("rgba(234, 162, 88, 0.7)")
         borderColor.push("rgba(234, 162, 88, 1)")
     })
     return ({
@@ -64,7 +64,7 @@ export const BudgetBar = ({ names, gifts }) => {
     }, [chartContainer]);
 
     return (
-        <div style={{width: "45%"}}>
+        <div style={{width: "45%", marginTop: "1em"}}>
             <canvas ref={chartContainer} />
         </div>
     );

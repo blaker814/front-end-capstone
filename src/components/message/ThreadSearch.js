@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { FriendContext } from "../friend/FriendProvider"
-import { Input } from "semantic-ui-react"
+import { Search } from "semantic-ui-react"
 
 export const ThreadSearch = () => {
     const { setSearchTerms } = useContext(FriendContext)
@@ -10,15 +10,14 @@ export const ThreadSearch = () => {
     }, [])
     
     return (
-        <>
-            <label htmlFor="friendSearch">Search threads: </label> 
-            <Input type="text"
+        <div className="search-bar">
+            <Search type="text"
                 className="input--wide"
                 id="friendSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
                 placeholder="Search for a thread... " />
-        </>
+        </div>
     )
 }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { GiftListContext } from "./GiftListProvider";
 import { GiftListCard } from "./GiftListCard";
 import "./Gift.css"
-import { Button, Modal, Input } from "semantic-ui-react";
+import { Button, Modal, Input, Icon } from "semantic-ui-react";
 
 export const GiftList = () => {
     const { searchTerms, giftLists, getGiftListsById, addGiftList } = useContext(GiftListContext)
@@ -44,14 +44,14 @@ export const GiftList = () => {
     }
 
     return ( 
-        <>
-            <h2>Gift Lists</h2>
+        <section>
+            <h2><Icon name="gift" />Gift Lists</h2>
             <Modal
                 size="mini"
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={<Button type="button" style={{ marginBottom: 25 }}>New Gift List</Button>}
+                trigger={<Button type="button" style={{ marginTop: "1em", marginBottom: "2em", marginLeft: "1em" }}>New Gift List</Button>}
             >
                 <Modal.Content>
                     <Input type="text" ref={giftsFor} placeholder="Gift recipient..." fluid />
@@ -79,6 +79,6 @@ export const GiftList = () => {
                     })
                 }
             </div>
-        </>
+        </section>
     )
 }

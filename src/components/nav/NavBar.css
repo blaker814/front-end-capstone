@@ -1,5 +1,5 @@
 .navbar__container {
-    background-color: rgba(220, 99, 52, .8)
+    background-color: rgba(255, 255, 255, .5)
 }
 
 .navbar {
@@ -12,38 +12,47 @@
     padding: 0;
     margin: 0 auto 0 auto;
     max-width: 1100px;
+    font-size: 16px;
 }
 
 .navbar a {
-    color: white;
+    color: #2c6e5f;
 }
 
 .navbar a:hover {
-    color: black;
+    color: 	#4cae97;
 }
 
-.navbar-logo {
-    height: 75px;
+.logo-nav {
+    padding: 0;
 }
 
 .navbar__item {
     list-style-type: none;
+    padding: 28px 0px;
 }
+
+.navbar-logo {
+    height: 75px; 
+}
+
+/* .navbar__item:hover{
+    opacity: .5;
+} */
 
 .logout {
-    /* background-color: rgb(118, 101, 57); */
-    padding: 8px;
-    /* border-radius: 5px; */
-}
-
-.logout:hover {
-    box-shadow: 0 0 10px 2px rgb(234, 162, 88);
+    background-color: white;
+    padding: 28px 5px;
 }
 
 .logout a {
-    color: white;
+    color: #2c6e5f;
+}
+
+.logout:hover {
+    background-color: white;
 }
 
 .logout a:hover {
-    color: white;
+    color: rgba(220, 99, 52, .8);
 }

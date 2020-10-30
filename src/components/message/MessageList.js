@@ -78,7 +78,7 @@ export const MessageList = () => {
                 }
             </section>
             <form className="messageForm" onSubmit={handleInput}>
-                <Input type="text" ref={messageContent} placeholder="Enter message..." required autoFocus />
+                <Input type="text" ref={messageContent} style={{width: "33%"}} placeholder="Enter message..." required autoFocus />
                 <Button primary type="submit">Send Message</Button>
             </form>
         </>

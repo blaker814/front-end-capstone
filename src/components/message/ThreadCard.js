@@ -55,7 +55,7 @@ export const ThreadCard = ({ friend }) => {
                 </Link>
             </h3>
             <p>{friend.user.firstName} {friend.user.lastName}</p>
-            <Button icon negative type="button" style={{ marginLeft: 10 }} onClick={handleRemoveThread}><Icon name="trash" /></Button>
+            <Button type="button" style={{ marginLeft: 10 }} onClick={handleRemoveThread}>Delete</Button>
         </section>
     )
 }

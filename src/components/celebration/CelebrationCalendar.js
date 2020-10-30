@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CelebrationContext } from "./CelebrationProvider";
 import { CalendarCard } from "./CalendarCard"
-import { Button } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
 const todaysDate = new Date(Date.now() - 18000000).toISOString().split("T")[0]
@@ -50,11 +50,11 @@ export const CelebrationCalendar = () => {
 
     return ( 
         <div>
-            <h2>Celebrations Calendar</h2>
+            <h2><Icon name="calendar alternate" />Celebrations Calendar</h2>
             <Button type="button" onClick={() => {
                 history.push("/celebrations/create")
             }}>Add Celebration</Button>
-            <section>
+            <section className="dates-list">
                 {
                     dates?.sort().map(date => {
                         if (date >= todaysDate && date < futureDate) {

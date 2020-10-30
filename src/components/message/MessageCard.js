@@ -47,7 +47,7 @@ export const MessageCard = ({ message, thread }) => {
                         onClose={() => setOpen(false)}
                         onOpen={() => setOpen(true)}
                         open={open}
-                        trigger={<Button type="button" style={{ marginBottom: 25 }}>Edit</Button>}
+                        trigger={<Button type="button">Edit</Button>}
                     >
                         <Modal.Content>
                             <Input type="text" ref={messageContent} defaultValue={message.message} fluid />
@@ -76,7 +76,7 @@ export const MessageCard = ({ message, thread }) => {
                             </Button>
                         </Modal.Actions>
                     </Modal>
-                    <Button negative type="button" onClick={() => {
+                    <Button type="button" onClick={() => {
                         deleteMessage(message.id)
                         getMessages()
                     }}>Delete</Button>
@@ -88,11 +88,11 @@ export const MessageCard = ({ message, thread }) => {
         // renders global chat bubbles
         return (
             <Container className="message--container">
-                <Message className="message" floating style={{ backgroundColor: "lightgreen" }}> 
-                    <Header as="h3" className="message--notFriend">{thread?.user.username}</Header>
+                <Message className="message" floating style={{ backgroundColor: "#4cae97", }}> 
+                    <Header as="h3" className="message--notFriend" style={{}}>{thread?.user.username}</Header>
                     <p className="message--content">{message.message}</p>
                     <p className="message--date" style={{ fontSize: "x-small" }}>{message.date}</p>
-                    <Button negative type="button" onClick={handleRemoveMessage}>Delete</Button>
+                    <Button type="button" onClick={handleRemoveMessage}>Delete</Button>
                 </Message>
                 
             </Container>

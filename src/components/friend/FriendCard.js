@@ -22,7 +22,7 @@ export const FriendCard = ({ friend }) => {
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
                     open={open}
-                    trigger={<Icon style={{position: "absolute", top: "0px", right: "0px"}} className="remove link icon" />}
+                    trigger={<Icon style={{position: "absolute", top: "0px", right: "0px"}} className="remove link inverted icon" />}
                 >
                     <Modal.Content>
                         <p>Are you sure you want to remove this friend?</p>

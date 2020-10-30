@@ -10,8 +10,8 @@ const chartConfig = (total, spent ) => ({
             {
                 data: [spent, total-spent],
                 backgroundColor: [
-                    "rgba(220, 99, 52, 0.4)",
-                    "rgba(76, 174, 151, 0.4)"
+                    "rgba(220, 99, 52, 0.7)",
+                    "rgba(76, 174, 151, 0.7)"
                     
                 ],
                 borderColor: [
@@ -31,7 +31,7 @@ export const BudgetPie = ({ total, spent }) => {
 
   useEffect(() => {
     if (chartContainer && chartContainer.current) {
-        new Chartjs(chartContainer.current, chartConfig(total, spent ));
+        new Chartjs(chartContainer.current, chartConfig(total, spent));
     }
   }, [chartContainer]);
 

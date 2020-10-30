@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { ThreadCard } from "./ThreadCard"
 import { FriendContext } from "../friend/FriendProvider";
-import { Button, Modal, Input } from "semantic-ui-react";
+import { Button, Modal, Input, Icon } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 
 export const ThreadList = () => {
@@ -62,14 +62,14 @@ export const ThreadList = () => {
     }
 
     return (
-        <>
-            <h2>Threads</h2>
+        <section>
+            <h2><Icon name="comments" />Threads</h2>
             <Modal
                 size="mini"
                 onClose={() => setOpen(false)}
                 onOpen={() => setOpen(true)}
                 open={open}
-                trigger={<Button style={{ marginBottom: 25 }}>Add Thread</Button>}
+                trigger={<Button style={{ marginTop: "1em", marginBottom: "2em", marginLeft: "1em" }}>Add Thread</Button>}
             >
                 <Modal.Content>
                     <Input type="text" ref={friendName} placeholder="Friend's name..." fluid />
@@ -92,13 +92,13 @@ export const ThreadList = () => {
                     </Button>
                 </Modal.Actions>
             </Modal>
-            <section className="threads">
+            <div className="threads">
                 {
                     filteredThreads.map(friend => {
                         return friend.threadExist ? <ThreadCard key={friend.id} friend={friend} /> : null
                     })
                 }
-            </section>
-        </>
+            </div>
+        </section>
     )
 }

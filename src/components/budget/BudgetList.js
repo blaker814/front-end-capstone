@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { BudgetContext } from "./BudgetProvider"
 import { BudgetCard } from "./BudgetCard"
-import { Button } from "semantic-ui-react"
+import { Button, Icon } from "semantic-ui-react"
 import { useHistory } from "react-router-dom"
 import "./Budget.css"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
@@ -37,8 +37,8 @@ export const BudgetList = () => {
 
     return (
         <section>
-            <h2>Budgets</h2>
-            <Button type="button" onClick={() => {
+            <h2><Icon name="dollar sign" />Budgets</h2>
+            <Button type="button" style={{ marginTop: "1em", marginBottom: "2em", marginLeft: "1em" }} onClick={() => {
                 return history.push("/budgets/create")
             }}>Add Budget</Button>
             <div className="budgets">

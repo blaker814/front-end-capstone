@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { GiftListContext } from "./GiftListProvider"
-import { Input } from "semantic-ui-react"
+import { Search } from "semantic-ui-react"
 
 export const GiftSearch = () => {
     const { setSearchTerms } = useContext(GiftListContext)
@@ -10,15 +10,14 @@ export const GiftSearch = () => {
     }, [])
     
     return (
-        <>
-            <label htmlFor="giftSearch">Search gift lists: </label> 
-            <Input type="text"
+        <div className="search-bar">
+            <Search type="text"
                 className="input--wide"
                 id="giftSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
                 placeholder="Search for a gift list... " />
-        </>
+        </div>
     )
 }
