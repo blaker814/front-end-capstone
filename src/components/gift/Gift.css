@@ -1,12 +1,48 @@
 .gifts {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
-.gift {
-    flex-basis: 28%;
+.gift-card {
+    flex-basis: 30%;
     margin: 1em;
     padding: 1em;
-    border: 1px solid lightgreen;
+    border: 1px solid #c95022;
+}
+
+.giftForm__title {
+    text-align: center;
+}
+
+.giftForm-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.gift-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container--gift {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 50px;
+    border-radius: 25px;
+    width: 400px;
+}
+
+.form--gift {
+    text-align: left;
+}
+
+.giftContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 93vh;
+    background-color: #eaa258;
 }

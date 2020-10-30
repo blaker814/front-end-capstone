@@ -1,6 +1,7 @@
 import React, { useRef } from "react"
 import { useHistory } from "react-router-dom"
-import { Button } from "semantic-ui-react"
+import { Button, Divider } from "semantic-ui-react"
+import banner from "../../img/banner.png"
 import "./Login.css"
 
 export const Register = (props) => {
@@ -77,14 +78,17 @@ export const Register = (props) => {
         <>
             <div className="mainContainer">
                 <main className="container--login" style={{ textAlign: "center" }}>
-
+                    <div className="background"></div>
                     <dialog className="dialog dialog--password" ref={conflictDialog}>
                         <div>Account with that email address or username already exists</div>
                         <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
                     </dialog>
 
                     <form className="form--login" onSubmit={handleRegister}>
-                        <h1 className="h3 mb-3 font-weight-normal">Please Register for IBS</h1>
+                        <h1 className="h3 mb-3 font-weight-normal">Please Register for Celebration Station</h1>
+
+                        <Divider />
+
                         <fieldset>
                             <label htmlFor="firstName"> First Name </label>
                             <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
@@ -123,10 +127,6 @@ export const Register = (props) => {
                         </div>
                     </form>
                 </main>
-
-                {/* <video className="videoTag" autoPlay loop muted>
-                    <source src={video} type="video/mp4" />
-                </video> */}
             </div>
         </>
     )

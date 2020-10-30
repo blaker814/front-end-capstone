@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { CelebrationContext } from "../celebration/CelebrationProvider"
-import { Input } from "semantic-ui-react"
+import { Search } from "semantic-ui-react"
 
 export const CelebrationSearch = () => {
     const { setSearchTerms } = useContext(CelebrationContext)
@@ -10,15 +10,14 @@ export const CelebrationSearch = () => {
     }, [])
     
     return (
-        <>
-            <label htmlFor="celebrationSearch">Search celebrations: </label> 
-            <Input type="text"
+        <div className="search-bar">
+            <Search type="text"
                 className="input--wide"
                 id="celebrationSearch"
                 onKeyUp={
                     (keyEvent) => setSearchTerms(keyEvent.target.value)
                 }
                 placeholder="Search for a celebration " />
-        </>
+        </div>
     )
 }

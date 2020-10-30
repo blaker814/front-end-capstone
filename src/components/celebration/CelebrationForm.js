@@ -98,7 +98,9 @@ export const CelebrationForm = () => {
     }
 
     return (
-        <form className="celebrationForm" onSubmit={evt => {
+        <section className="celebrationContainer">
+            <div className="container--celebration">
+        <form className="form--celebration" onSubmit={evt => {
             evt.preventDefault() // Prevent browser from submitting the form
             constructCelebrationObject()
         }}>
@@ -157,7 +159,8 @@ export const CelebrationForm = () => {
                     {isLoading ? <h3>Loading...</h3> : <img src={image.image} style={{width: "300px"}} />}
                 </div>
             </fieldset>
-            <Button type="submit"
+            <div className="celebrationForm-buttons">
+            <Button primary type="submit"
                 disabled = {isLoading}
                 className="btn btn-primary">
                 {params.celebrationId ? "Save Celebration" : "Add Celebration"}
@@ -165,6 +168,9 @@ export const CelebrationForm = () => {
             <Button type="button" onClick={() => {
                 params?.date ? history.push(`/celebrations/list/${params.date}`) : params?.celebrationId ? history.push(`/celebrations/list/${params.celebrationDate}`) : history.push("/celebrations")
             }}>Cancel</Button>
+            </div>
         </form>
+        </div>
+        </section>
     )
 }

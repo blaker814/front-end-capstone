@@ -1,12 +1,52 @@
 .celebrations {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .celebration {
-    flex-basis: 28%;
+    flex-basis: 30%;
     margin: 1em;
     padding: 1em;
-    border: 1px solid lightgreen;
+    border: 1px solid #c95022;
+}
+
+.dates-list {
+    margin: 1em;
+}
+
+.celebrationForm__title {
+    text-align: center;
+}
+
+.celebrationForm-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.celebration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container--celebration {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 50px;
+    border-radius: 25px;
+    width: 400px;
+}
+
+.form--celebration {
+    text-align: left;
+}
+
+.celebrationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 93vh;
+    background-color: #dc6334;
 }

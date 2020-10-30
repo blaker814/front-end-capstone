@@ -13,7 +13,7 @@ export const CalendarCard = ({ date }) => {
     
     return (
         <section className="date">
-            <h3 className="active_date"><Link to={`/celebrations/list/${date}`}>{date}</Link></h3>
+            <h3 className="active_date"><Link to={`/celebrations/list/${date}`}>{new Date(`${date}T07:00:00Z`).toLocaleString("en-US").split(",")[0]}</Link></h3>
             <ul>
                 {
                     dateCelebrations?.map(dc => <li key={dc.id}>{dc.name}</li>)

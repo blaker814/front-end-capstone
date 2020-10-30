@@ -1,6 +1,8 @@
 /* Import the google web fonts you want to use */
-@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
-
+@import url('https://fonts.googleapis.com/css2?family=Exo&family=Vollkorn:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ruda:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@700&display=swap');
 /*Typography
 --------------------------------------------------------------*/
 body,
@@ -9,7 +11,7 @@ input,
 select,
 textarea {
   color: #404040;
-  font-family: "Comfortaa", Arial, sans-serif;
+  font-family: "Exo", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
 }
@@ -20,13 +22,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Patua One", serif;
+  font-family: "Vollkorn", serif;
   letter-spacing: 2px;
 }
 
 p {
   margin-bottom: 1.5em;
-  font-family: "Comfortaa", Arial, sans-serif;
+  font-family: "Exo", Arial, sans-serif;
 }
 
 strong {
@@ -36,3 +38,4 @@ strong {
 address {
   margin: 0 0 1.5em;
 }
+

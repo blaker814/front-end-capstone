@@ -2,18 +2,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: rgba(76, 174, 151, 1);
 }
 
-/* .videoTag {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100vw;
-    min-height: 100vh;
-    opacity: .25;
-    z-index: -1;
-} */ 
+.logo {
+    margin-top: -7em;
+    margin-left: 3.25em;
+    margin-bottom: -3em;
+}
 
 .h1, h1 {
     font-size: 2.5rem;
@@ -39,7 +36,7 @@ fieldset {
 
 .form-control {
     display: block;
-    width: 94% !important;
+    width: 100% !important;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -56,10 +53,20 @@ fieldset {
 
 .container--login {
     text-align: center;
-    background-color: rgba(255, 255, 255, .75);
+    background-color: rgba(255, 255, 255, 1);
     padding: 50px;
     border-radius: 25px;
     width: 500px;
+}
+
+.background {
+    background-image: url("../../img/banner.png");
+    background-size: contain;
+    background-repeat: repeat-x;
+    margin: -3.75em -2.4em 0em -2.4em;
+    width: 475px;
+    height: 48px;
+    opacity: .2;
 }
 
 .about {

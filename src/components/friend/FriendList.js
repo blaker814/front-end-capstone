@@ -76,7 +76,7 @@ export const FriendList = () => {
     return (
         <>
             <div className="friendsContainer">
-                <div className="friendsHeader">
+                <div className="friends-header">
                     <h2><Icon name="address book" />Friends</h2>
                 </div>
 
@@ -85,7 +85,7 @@ export const FriendList = () => {
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
                     open={open}
-                    trigger={<Button primary style={{ marginBottom: 25 }}>Add Friend</Button>}
+                    trigger={<Button style={{ marginTop: "1em", marginBottom: "2em", marginLeft: "1em" }}>Add Friend</Button>}
                 >
                     <Modal.Content>
                         <Input type="text" ref={friendName} placeholder="Friend's name..." fluid />

@@ -1,12 +1,63 @@
 .budgets {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .budget {
-    flex-basis: 28%;
+    flex-basis: 30%;
     margin: 1em;
     padding: 1em;
-    border: 1px solid lightgreen;
+    border: 1px solid #c95022;
+}
+
+.budgetForm__title {
+    text-align: center;
+}
+
+.budget-tables {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.budget-amounts {
+    display: flex;
+    justify-content: center;
+}
+
+.budget-buttons {
+    display: flex;
+    justify-content: space-between;  
+}
+
+.budgetForm-buttons {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.budget-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container--budget {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 50px;
+    border-radius: 25px;
+    width: 400px;
+}
+
+.form--budget {
+    text-align: left;
+}
+
+.budgetContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 92vh;
+    background-color: #4cae97;
 }
