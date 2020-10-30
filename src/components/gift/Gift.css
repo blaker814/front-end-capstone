@@ -48,17 +48,12 @@
     visibility: hidden;
 }
 
-.message {
+.results > .message {
     display: none;
     visibility: hidden;
 }
 
-.results {
-    display: none !important;
-    visibility: hidden !important;
-}
-
-.visible {
+.results.visible {
     border-color: white !important;
     box-shadow: none !important;
     z-index: -100;

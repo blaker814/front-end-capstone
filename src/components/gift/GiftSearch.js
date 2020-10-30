@@ -11,7 +11,7 @@ export const GiftSearch = () => {
     
     return (
         <div className="search-bar">
-            <Search empty hide type="text"
+            <Search type="text"
                 className="input--wide"
                 id="giftSearch"
                 onKeyUp={
