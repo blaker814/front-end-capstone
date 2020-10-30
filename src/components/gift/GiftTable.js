@@ -50,7 +50,7 @@ export const GiftTable = () => {
                     history.push("/friends")
                 }}>Back to Friends List</Button>
             }
-            <Table celled>
+            <Table celled fixed single line color={"teal"} inverted style={{opacity: ".9"}}>
                 <Table.Header>
                     <Table.Row>
                         {params.tableId ?
@@ -60,7 +60,7 @@ export const GiftTable = () => {
                             :
                             header.map((item, i) => {
                                 if (i !== 0) {
-                                    return <Table.HeaderCell key={`item--${i}`} >{item.toUpperCase()}</Table.HeaderCell>   
+                                    return <Table.HeaderCell key={`item--${i}`}>{item.toUpperCase()}</Table.HeaderCell>   
                                 }
                             })
                         }
@@ -74,7 +74,7 @@ export const GiftTable = () => {
                         })
                     }
                 </Table.Body>
-            </Table>   
+            </Table>
         </>
     )
 }

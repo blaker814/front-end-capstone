@@ -34,7 +34,7 @@ export const GiftCard = ({ gift }) => {
     }, [])
 
     return (
-        <Table.Row>   
+        <Table.Row>    
             {!params.friendId ?
                 <Table.Cell>
                     <Button type="button" onClick={() => {
@@ -56,10 +56,10 @@ export const GiftCard = ({ gift }) => {
                 undefined
             }   
             <Table.Cell>{gift.gift}</Table.Cell>
-            <Table.Cell>${gift.price}</Table.Cell>
-            <Table.Cell>
+            <Table.Cell>{gift.price ? `$${gift.price}` : "TBD"}</Table.Cell>
+            <Table.Cell singleLine fixed>
                 {
-                    giftLinks.length > 0 ? giftLinks.map(gl=> <div key={gl.id}><a href={gl.link}>{gl.link}</a></div>) : "None"
+                    giftLinks.length > 0 ? giftLinks.map(gl=> <div key={gl.id} ><a className="card-links" href={gl.link}>{gl.link}</a></div>) : "None"
                 }
             </Table.Cell>
             <Table.Cell>{gift.celebrationId ? celebration.name : "Any"}</Table.Cell>

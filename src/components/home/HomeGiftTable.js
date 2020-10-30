@@ -31,7 +31,7 @@ export const HomeGiftTable = () => {
             <Button type="button" onClick={() => {
                 history.push(`/gifts/create/${list.id}`)
             }}>Add Gift</Button>
-            <Table celled>
+            <Table celled fixed single line color={"teal"} inverted style={{opacity: ".9"}}>
                 <Table.Header>
                     <Table.Row>
                         {

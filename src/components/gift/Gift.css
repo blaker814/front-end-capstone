@@ -39,6 +39,10 @@
     text-align: left;
 }
 
+.card-links {
+    color: indigo;
+}
+
 .giftContainer {
     display: flex;
     justify-content: center;

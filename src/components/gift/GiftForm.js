@@ -162,7 +162,7 @@ export const GiftForm = () => {
             <Form.Field>
                 <div className="form-group">
                     <label htmlFor="price">Price of gift </label>
-                    <input type="number" id="price" name="price" required 
+                    <input type="number" id="price" name="price" required={chosen==="yes"}
                     className="form-control" placeholder="Price of gift..." 
                     onChange={handleControlledInputChange} 
                     defaultValue={gift.price} />
