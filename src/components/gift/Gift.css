@@ -43,6 +43,27 @@
     color: indigo;
 }
 
+.header {
+    display: none;
+    visibility: hidden;
+}
+
+.message {
+    display: none;
+    visibility: hidden;
+}
+
+.results {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.visible {
+    border-color: white !important;
+    box-shadow: none !important;
+    z-index: -100;
+}
+
 .giftContainer {
     display: flex;
     justify-content: center;

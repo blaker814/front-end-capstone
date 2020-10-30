@@ -12,7 +12,7 @@ export const FriendSearch = () => {
     
     return (
         <div className="search-bar">
-            <Search type="text"
+            <Search hide results type="text"
                 className="input--wide"
                 id="friendSearch"
                 onKeyUp={

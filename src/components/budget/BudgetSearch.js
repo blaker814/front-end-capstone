@@ -11,7 +11,7 @@ export const BudgetSearch = () => {
     
     return (
         <div className="search-bar">
-            <Search type="text"
+            <Search is empty hide results type="text"
                 className="input--wide"
                 id="budgetSearch"
                 onKeyUp={
