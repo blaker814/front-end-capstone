@@ -25,7 +25,7 @@ export const ThreadList = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = myFriends.filter(friend => {
-                return friend.user.firstName.toLowerCase().includes(searchTerms) || friend.user.lastName.toLowerCase().includes(searchTerms) || friend.user.username.toLowerCase().includes(searchTerms)
+                return friend.user.firstName.toLowerCase().includes(searchTerms.toLowerCase()) || friend.user.lastName.toLowerCase().includes(searchTerms.toLowerCase()) || friend.user.username.toLowerCase().includes(searchTerms.toLowerCase())
             })
             setFiltered(subset)
         } else {

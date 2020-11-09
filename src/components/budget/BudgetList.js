@@ -22,7 +22,7 @@ export const BudgetList = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = userBudgets.filter(budget => {
-                return budget.name.toLowerCase().includes(searchTerms) || budget.celebration.name.toLowerCase().includes(searchTerms)
+                return budget.name.toLowerCase().includes(searchTerms.toLowerCase()) || budget.celebration.name.toLowerCase().includes(searchTerms.toLowerCase())
             })
             setFiltered(subset)
         } else {

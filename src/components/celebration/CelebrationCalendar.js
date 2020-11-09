@@ -28,7 +28,7 @@ export const CelebrationCalendar = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = celebrations.filter(celebration => {
-                return celebration.name.toLowerCase().includes(searchTerms)
+                return celebration.name.toLowerCase().includes(searchTerms.toLowerCase())
             })
             setFiltered(subset)
         } else {
@@ -49,12 +49,12 @@ export const CelebrationCalendar = () => {
     }))]
 
     return ( 
-        <div>
+        <section>
             <h2><Icon name="calendar alternate" />Celebrations Calendar</h2>
-            <Button type="button" onClick={() => {
+            <Button type="button" style={{ marginTop: "1em", marginBottom: "2em", marginLeft: "1em" }} onClick={() => {
                 history.push("/celebrations/create")
             }}>Add Celebration</Button>
-            <section className="dates-list">
+            <div className="dates-list">
                 {
                     dates?.sort().map(date => {
                         if (date >= todaysDate && date < futureDate) {
@@ -62,7 +62,7 @@ export const CelebrationCalendar = () => {
                         }
                     })
                 }
-            </section>
-        </div>
+            </div>
+        </section>
     )
 }

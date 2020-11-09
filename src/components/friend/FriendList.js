@@ -23,7 +23,7 @@ export const FriendList = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = userFriends.filter(friend => {
-                return friend.user.firstName.toLowerCase().includes(searchTerms) || friend.user.lastName.toLowerCase().includes(searchTerms) || friend.user.username.toLowerCase().includes(searchTerms)
+                return friend.user.firstName.toLowerCase().includes(searchTerms.toLowerCase()) || friend.user.lastName.toLowerCase().includes(searchTerms.toLowerCase()) || friend.user.username.toLowerCase().includes(searchTerms.toLowerCase())
             })
             setFiltered(subset)
         } else {
@@ -75,10 +75,9 @@ export const FriendList = () => {
 
     return (
         <>
-            <div className="friendsContainer">
-                <div className="friends-header">
-                    <h2><Icon name="address book" />Friends</h2>
-                </div>
+            <section className="friendsContainer">
+                <h2><Icon name="address book" />Friends</h2>
+                
 
                 <Modal
                     size="mini"
@@ -115,7 +114,7 @@ export const FriendList = () => {
                         })
                     }
                 </div>
-            </div>
+            </section>
         </>
     )
 }

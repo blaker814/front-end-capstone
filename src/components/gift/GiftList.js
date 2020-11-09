@@ -19,7 +19,7 @@ export const GiftList = () => {
         if (searchTerms !== "") {
             // If the search field is not blank, display matching friends
             const subset = giftLists.filter(gl => {
-                return gl.giftsFor.toLowerCase().includes(searchTerms)
+                return gl.giftsFor.toLowerCase().includes(searchTerms.toLowerCase())
             })
             setFiltered(subset)
         } else {
