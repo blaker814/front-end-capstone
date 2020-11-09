@@ -32,7 +32,7 @@ export const CelebrationProvider = (props) => {
     }
 
     const getCelebrationsByDate = date => {
-        return fetch(`http://localhost:8088/celebrations?date=${date}`)
+        return fetch(`http://localhost:8088/celebrations?date=${date}&userId=${userId}`)
             .then(res => res.json())
     }
 

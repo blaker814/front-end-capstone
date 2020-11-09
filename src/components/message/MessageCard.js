@@ -92,6 +92,7 @@ export const MessageCard = ({ message, thread }) => {
                     <Header as="h3" className="message--notFriend" style={{}}>{thread?.user.username}</Header>
                     <p className="message--content">{message.message}</p>
                     <p className="message--date" style={{ fontSize: "x-small" }}>{message.date}</p>
+                    <p className="message--edited" style={{ fontSize: "x-small" }}>{message.edited ? "Edited" : undefined}</p>
                     <Button type="button" onClick={handleRemoveMessage}>Delete</Button>
                 </Message>
                 

@@ -14,6 +14,7 @@ const chartConfig = (names, gifts) => {
         backgroundColor.push("rgba(234, 162, 88, 0.7)")
         borderColor.push("rgba(234, 162, 88, 1)")
     })
+    
     return ({
         type: "bar",
         data: {
