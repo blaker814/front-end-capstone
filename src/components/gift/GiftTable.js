@@ -32,6 +32,7 @@ export const GiftTable = () => {
     }, [list])
 
     const header = ["", "gift", "price", "links", "celebration", "purchased?"]
+    const friendsHeader = ["gift", "price", "links", "celebration", "received?"]
 
     return (
         <>
@@ -58,10 +59,8 @@ export const GiftTable = () => {
                                 return <Table.HeaderCell key={`item--${i}`} >{item.toUpperCase()}</Table.HeaderCell>   
                             })
                             :
-                            header.map((item, i) => {
-                                if (i !== 0) {
-                                    return <Table.HeaderCell key={`item--${i}`}>{item.toUpperCase()}</Table.HeaderCell>   
-                                }
+                            friendsHeader.map((item, i) => {
+                                return <Table.HeaderCell key={`item--${i}`}>{item.toUpperCase()}</Table.HeaderCell>   
                             })
                         }
                     </Table.Row>
