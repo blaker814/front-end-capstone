@@ -62,14 +62,14 @@ export const CelebrationForm = () => {
         } else {
             addCelebration({
                 name: celebration.name,
-                date: celebration.date,
+                date: celebration.date ? celebration.date : params.date,
                 reminderStartDate: celebration.reminderStartDate,
                 about: celebration.about,
                 imageId: image.id,
                 isYearly: !isChecked,
                 userId: parseInt(localStorage.getItem("cs_user"))
             })
-            .then(() => history.push(`/celebrations/list/${celebration.date}`))
+            .then(() => history.push(`/celebrations/list/${celebration.date ? celebration.date : params.date}`))
         }
     }
 
@@ -132,7 +132,7 @@ export const CelebrationForm = () => {
                     <label htmlFor="isYearly"> One-time celebration</label>
                 </div>
             </fieldset>
-            <fieldset hidden={params?.date ? false : !celebration.date}>
+            <fieldset hidden={params.date ? false : !celebration.date}>
                 <div className="form-group">
                     <label htmlFor="reminderStartDate">Celebration reminder start date: </label>
                     <input type="date" id="reminderStartDate" name="reminderStartDate" required 
