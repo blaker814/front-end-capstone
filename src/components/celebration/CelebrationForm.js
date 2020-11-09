@@ -132,7 +132,7 @@ export const CelebrationForm = () => {
                     <label htmlFor="isYearly"> One-time celebration</label>
                 </div>
             </fieldset>
-            <fieldset hidden={!celebration.date}>
+            <fieldset hidden={params?.date ? false : !celebration.date}>
                 <div className="form-group">
                     <label htmlFor="reminderStartDate">Celebration reminder start date: </label>
                     <input type="date" id="reminderStartDate" name="reminderStartDate" required 
