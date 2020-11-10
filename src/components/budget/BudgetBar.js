@@ -14,7 +14,7 @@ const chartConfig = (names, gifts) => {
         backgroundColor.push("rgba(234, 162, 88, 0.7)")
         borderColor.push("rgba(234, 162, 88, 1)")
     })
-    
+
     return ({
         type: "bar",
         data: {
@@ -36,25 +36,25 @@ const chartConfig = (names, gifts) => {
                 fontSize: 16
             },
             scales: {
-            yAxes: [
-                {
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Dollars"
-                    },
-                    ticks: {
-                        beginAtZero: true
+                yAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Dollars"
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
                     }
-                }
-            ],
-            xAxes: [
-                {
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Recipient"
+                ],
+                xAxes: [
+                    {
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Recipient"
+                        }
                     }
-                }
-            ]
+                ]
             }
         }
     })
