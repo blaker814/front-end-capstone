@@ -1,6 +1,4 @@
-# Celebration Station
-
-## Front End Capstone
+# Celebration Station - Front End Capstone
 
 Celebration Station is an app to keep track of celebratory events while providing a way to organize gift ideas and budgets correlating to those events.
 
